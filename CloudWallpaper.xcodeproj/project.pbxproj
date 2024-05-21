@@ -1,0 +1,423 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BE8EBC092BEF7C6A006EC116 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE8EBC082BEF7C6A006EC116 /* Assets.xcassets */; };
+		BE8EBC0C2BEF7C6A006EC116 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE8EBC0B2BEF7C6A006EC116 /* Preview Assets.xcassets */; };
+		BE8EBC142BEF7CBD006EC116 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EBC132BEF7CBD006EC116 /* AppDelegate.swift */; };
+		BE8EBC162BEF7CF9006EC116 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EBC152BEF7CF9006EC116 /* Downloader.swift */; };
+		BE8EBC182BEF7D4D006EC116 /* ApiRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EBC172BEF7D4D006EC116 /* ApiRequestHandler.swift */; };
+		BE8EBC1A2BEF7DBC006EC116 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EBC192BEF7DBC006EC116 /* main.swift */; };
+		BE8EBC1C2BEF7FBA006EC116 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EBC1B2BEF7FBA006EC116 /* LoginForm.swift */; };
+		BEEE9C9F2BFCA23D00A0A9B1 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = BEEE9C9E2BFCA23D00A0A9B1 /* Sparkle */; };
+		BEEE9CA22BFCA5C500A0A9B1 /* appcast.xml in Resources */ = {isa = PBXBuildFile; fileRef = BEEE9CA12BFCA5C500A0A9B1 /* appcast.xml */; };
+		BEEE9CA42BFCA8AD00A0A9B1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BEEE9CA32BFCA8AD00A0A9B1 /* Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BE8EBC012BEF7C68006EC116 /* CloudWallpaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudWallpaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE8EBC082BEF7C6A006EC116 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BE8EBC0B2BEF7C6A006EC116 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BE8EBC0D2BEF7C6A006EC116 /* CloudWallpaper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CloudWallpaper.entitlements; sourceTree = "<group>"; };
+		BE8EBC132BEF7CBD006EC116 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BE8EBC152BEF7CF9006EC116 /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
+		BE8EBC172BEF7D4D006EC116 /* ApiRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequestHandler.swift; sourceTree = "<group>"; };
+		BE8EBC192BEF7DBC006EC116 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		BE8EBC1B2BEF7FBA006EC116 /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
+		BEEE9CA12BFCA5C500A0A9B1 /* appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = "<group>"; };
+		BEEE9CA32BFCA8AD00A0A9B1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BE8EBBFE2BEF7C68006EC116 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEEE9C9F2BFCA23D00A0A9B1 /* Sparkle in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BE8EBBF82BEF7C68006EC116 = {
+			isa = PBXGroup;
+			children = (
+				BEEE9CA32BFCA8AD00A0A9B1 /* Info.plist */,
+				BE8EBC032BEF7C68006EC116 /* CloudWallpaper */,
+				BE8EBC022BEF7C68006EC116 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BE8EBC022BEF7C68006EC116 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BE8EBC012BEF7C68006EC116 /* CloudWallpaper.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BE8EBC032BEF7C68006EC116 /* CloudWallpaper */ = {
+			isa = PBXGroup;
+			children = (
+				BEEE9CA02BFCA57C00A0A9B1 /* Resources */,
+				BE8EBC082BEF7C6A006EC116 /* Assets.xcassets */,
+				BE8EBC0D2BEF7C6A006EC116 /* CloudWallpaper.entitlements */,
+				BE8EBC0A2BEF7C6A006EC116 /* Preview Content */,
+				BE8EBC132BEF7CBD006EC116 /* AppDelegate.swift */,
+				BE8EBC152BEF7CF9006EC116 /* Downloader.swift */,
+				BE8EBC172BEF7D4D006EC116 /* ApiRequestHandler.swift */,
+				BE8EBC192BEF7DBC006EC116 /* main.swift */,
+				BE8EBC1B2BEF7FBA006EC116 /* LoginForm.swift */,
+			);
+			path = CloudWallpaper;
+			sourceTree = "<group>";
+		};
+		BE8EBC0A2BEF7C6A006EC116 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				BE8EBC0B2BEF7C6A006EC116 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BEEE9CA02BFCA57C00A0A9B1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BEEE9CA12BFCA5C500A0A9B1 /* appcast.xml */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BE8EBC002BEF7C68006EC116 /* CloudWallpaper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE8EBC102BEF7C6A006EC116 /* Build configuration list for PBXNativeTarget "CloudWallpaper" */;
+			buildPhases = (
+				BE8EBBFD2BEF7C68006EC116 /* Sources */,
+				BE8EBBFE2BEF7C68006EC116 /* Frameworks */,
+				BE8EBBFF2BEF7C68006EC116 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CloudWallpaper;
+			packageProductDependencies = (
+				BEEE9C9E2BFCA23D00A0A9B1 /* Sparkle */,
+			);
+			productName = CloudWallpaper;
+			productReference = BE8EBC012BEF7C68006EC116 /* CloudWallpaper.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BE8EBBF92BEF7C68006EC116 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1530;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					BE8EBC002BEF7C68006EC116 = {
+						CreatedOnToolsVersion = 15.3;
+						LastSwiftMigration = 1530;
+					};
+				};
+			};
+			buildConfigurationList = BE8EBBFC2BEF7C68006EC116 /* Build configuration list for PBXProject "CloudWallpaper" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BE8EBBF82BEF7C68006EC116;
+			packageReferences = (
+				BEEE9C9D2BFCA23D00A0A9B1 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
+			productRefGroup = BE8EBC022BEF7C68006EC116 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BE8EBC002BEF7C68006EC116 /* CloudWallpaper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BE8EBBFF2BEF7C68006EC116 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BEEE9CA42BFCA8AD00A0A9B1 /* Info.plist in Resources */,
+				BE8EBC0C2BEF7C6A006EC116 /* Preview Assets.xcassets in Resources */,
+				BE8EBC092BEF7C6A006EC116 /* Assets.xcassets in Resources */,
+				BEEE9CA22BFCA5C500A0A9B1 /* appcast.xml in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BE8EBBFD2BEF7C68006EC116 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE8EBC1C2BEF7FBA006EC116 /* LoginForm.swift in Sources */,
+				BE8EBC162BEF7CF9006EC116 /* Downloader.swift in Sources */,
+				BE8EBC182BEF7D4D006EC116 /* ApiRequestHandler.swift in Sources */,
+				BE8EBC1A2BEF7DBC006EC116 /* main.swift in Sources */,
+				BE8EBC142BEF7CBD006EC116 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BE8EBC0E2BEF7C6A006EC116 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXCLUDED_ARCHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BE8EBC0F2BEF7C6A006EC116 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXCLUDED_ARCHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		BE8EBC112BEF7C6A006EC116 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = CloudWallpaper/CloudWallpaper.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 3;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"CloudWallpaper/Preview Content\"";
+				DEVELOPMENT_TEAM = QGZWF22AD2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = CloudWallpaper;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haokan.CloudWallpaper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		BE8EBC122BEF7C6A006EC116 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = CloudWallpaper/CloudWallpaper.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 3;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"CloudWallpaper/Preview Content\"";
+				DEVELOPMENT_TEAM = QGZWF22AD2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = CloudWallpaper;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haokan.CloudWallpaper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BE8EBBFC2BEF7C68006EC116 /* Build configuration list for PBXProject "CloudWallpaper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE8EBC0E2BEF7C6A006EC116 /* Debug */,
+				BE8EBC0F2BEF7C6A006EC116 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE8EBC102BEF7C6A006EC116 /* Build configuration list for PBXNativeTarget "CloudWallpaper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE8EBC112BEF7C6A006EC116 /* Debug */,
+				BE8EBC122BEF7C6A006EC116 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BEEE9C9D2BFCA23D00A0A9B1 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.6.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BEEE9C9E2BFCA23D00A0A9B1 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BEEE9C9D2BFCA23D00A0A9B1 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = BE8EBBF92BEF7C68006EC116 /* Project object */;
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>92CloudWallpaper Updates</title>
+    <link>https://92.levect.com/appcast.xml</link>
+    <description>.</description>
+    <language>zh-cn</language>
+    <item>
+      <title>Version 2.0</title>
+      <sparkle:releaseNotesLink>h</sparkle:releaseNotesLink>
+      <pubDate>Wed, 21 May 2024 12:00:00 +0000</pubDate>
+      <enclosure url="https://example.com/MyApp-2.0.zip" sparkle:version="2.0" length="10485760" type="application/octet-stream"/>
+    </item>
+  </channel>
+</rss>
