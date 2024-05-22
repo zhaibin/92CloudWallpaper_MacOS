@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		BE2069502BFD9B18000613E4 /* EnvLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE20694F2BFD9B18000613E4 /* EnvLoader.swift */; };
 		BE2069522BFD9C15000613E4 /* .env in Resources */ = {isa = PBXBuildFile; fileRef = BE2069512BFD9C15000613E4 /* .env */; };
-		BE2069552BFD9DBB000613E4 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = BE2069542BFD9DBB000613E4 /* Sparkle */; };
 		BE2069572BFDBE3D000613E4 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = BE2069562BFDBE3D000613E4 /* dsa_pub.pem */; };
+		BE2069712BFDD431000613E4 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = BE2069702BFDD431000613E4 /* Sparkle */; };
 		BE8EBC092BEF7C6A006EC116 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE8EBC082BEF7C6A006EC116 /* Assets.xcassets */; };
 		BE8EBC0C2BEF7C6A006EC116 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE8EBC0B2BEF7C6A006EC116 /* Preview Assets.xcassets */; };
 		BE8EBC142BEF7CBD006EC116 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EBC132BEF7CBD006EC116 /* AppDelegate.swift */; };
@@ -42,7 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE2069552BFD9DBB000613E4 /* Sparkle in Frameworks */,
+				BE2069712BFDD431000613E4 /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,7 +117,7 @@
 			);
 			name = CloudWallpaper;
 			packageProductDependencies = (
-				BE2069542BFD9DBB000613E4 /* Sparkle */,
+				BE2069702BFDD431000613E4 /* Sparkle */,
 			);
 			productName = CloudWallpaper;
 			productReference = BE8EBC012BEF7C68006EC116 /* CloudWallpaper.app */;
@@ -422,7 +422,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		BE2069542BFD9DBB000613E4 /* Sparkle */ = {
+		BE2069702BFDD431000613E4 /* Sparkle */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BE2069532BFD9DBB000613E4 /* XCRemoteSwiftPackageReference "Sparkle" */;
 			productName = Sparkle;
