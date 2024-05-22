@@ -14,8 +14,7 @@
                  sparkle:shortVersionString="0.2.6"
                  length="1681188"
                  type="application/octet-stream"
-                 sparkle:dsaSignature="MD0CHQCXIoJvQTrkaUfdUTanZbuP5o3ASP8hGYxIR2SJAhwVxeJALYKFS3kBleHK
-W+6FAXNzRDC6URscZ5m2"/>
+                 sparkle:dsaSignature="/dQJBxZFbBZKrQgmh1NytNTDbUJi1DwznAmmH2Sf/Sh3nMgEZ/OrOjIXC0BB2WUhSli8M/HZIexgDYQkCnUIBw=="/>
     </item>
   </channel>
 </rss>
