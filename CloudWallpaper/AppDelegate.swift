@@ -2,6 +2,8 @@ import Cocoa
 import SwiftUI
 import Sparkle
 
+
+
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
     var loginWindow: NSWindow?
@@ -39,6 +41,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // 如果发现有另一个实例已在运行，则终止当前应用
             NSApp.terminate(nil)
         }
+        // 启用 Sparkle 调试日志
+       UserDefaults.standard.set(true, forKey: "SUEnableDebugLogging")
+
+       // 初始化 SPUStandardUpdaterController
+       updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
+        
+        
         EnvLoader.loadEnv()
         let screenSize = getScreenSize()
         screenWidth = screenSize?.width ?? screenWidth
@@ -53,8 +62,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 
     }
     
-    @objc func checkForUpdates() {
-        updaterController.checkForUpdates(nil)
+    //@objc func checkForUpdates() {
+    //    updaterController.checkForUpdates(nil)
+    //}
+    @IBAction func checkForUpdates(_ sender: Any?) {
+            updaterController.checkForUpdates(sender)
     }
     
     func setupLoginWindow() {
