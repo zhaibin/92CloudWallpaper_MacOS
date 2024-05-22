@@ -8,14 +8,14 @@
     <item>
       <title>Version 0.2.2</title>
       <sparkle:releaseNotesLink>https://zhaibin.github.io/92CloudWallpaper_MacOS/updates/release_notes_0.2.2.html</sparkle:releaseNotesLink>
-      <pubDate>Wed, 22 May 2024 05:33:34 </pubDate>
-      <enclosure url="https://github.com/zhaibin/92CloudWallpaper_MacOS/releases/download/v0.2.2/CloudWallpaper.app"
+      <pubDate>Wed, 22 May 2024 05:40:33 </pubDate>
+      <enclosure url="https://github.com/zhaibin/92CloudWallpaper_MacOS/releases/download/v0.2.2/CloudWallpaper.zip"
                  sparkle:version="0.2.2"
                  sparkle:shortVersionString="0.2.2"
                  length="1680206"
                  type="application/octet-stream"
-                 sparkle:dsaSignature="MD0CHQCN1IGvxV+uyfFBcRHDyleZ0diaVn2OZsm4iL9dAhxHSNh7PcWt9Dsh9fwk
-Yw7Bn8jmJRfkwrrH3Sqs"/>
+                 sparkle:dsaSignature="MD0CHAuO5d1/3Ioo4ShWYEiuz4mmB5cHwRyvrLrIkasCHQC0W5Rl71gY3S5UeGs6
+5gThmWdfVKDYewDN21af"/>
     </item>
   </channel>
 </rss>
