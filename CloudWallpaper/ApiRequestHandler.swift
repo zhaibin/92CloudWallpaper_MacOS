@@ -3,7 +3,7 @@ import CryptoKit
 
 class ApiRequestHandler {
     private var client = URLSession.shared
-    private let apiKey = "Z2oCDluRc0JlXUAmRO"
+    private let apiKey = ProcessInfo.processInfo.environment["API_KEY"] ?? ""
     private var ts: String { return generateFormattedTimestamp() }
     var userId = "0"
 

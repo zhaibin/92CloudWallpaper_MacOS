@@ -1,6 +1,6 @@
 import Cocoa
 import SwiftUI
-import Sparkle
+//import Sparkle
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var screenHeight: Int = 900
     var pageIndex = 1  // 翻页参数初始化为1
     //var isAutoStartEnabled: Bool = false
-    private var updaterController: SPUStandardUpdaterController!
+    //private var updaterController: SPUStandardUpdaterController!
 
            
     override init() {
@@ -39,6 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // 如果发现有另一个实例已在运行，则终止当前应用
             NSApp.terminate(nil)
         }
+        EnvLoader.loadEnv()
         let screenSize = getScreenSize()
         screenWidth = screenSize?.width ?? screenWidth
         screenHeight = screenSize?.height ?? screenHeight
@@ -48,12 +49,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setupStatusBar()
         setupLoginWindow()  // 设置用于登录的窗口
         
-        updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
+        //updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
                 
     }
     
     @objc func checkForUpdates() {
-            updaterController.checkForUpdates(nil)
+            //updaterController.checkForUpdates(nil)
         }
     
     func setupLoginWindow() {
