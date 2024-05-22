@@ -1,6 +1,6 @@
 import Cocoa
 import SwiftUI
-//import Sparkle
+import Sparkle
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var screenHeight: Int = 900
     var pageIndex = 1  // 翻页参数初始化为1
     //var isAutoStartEnabled: Bool = false
-    //private var updaterController: SPUStandardUpdaterController!
+    private var updaterController: SPUStandardUpdaterController!
 
            
     override init() {
@@ -49,13 +49,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setupStatusBar()
         setupLoginWindow()  // 设置用于登录的窗口
         
-        //updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
+        updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
                 
     }
     
     @objc func checkForUpdates() {
-            //updaterController.checkForUpdates(nil)
-        }
+        updaterController.checkForUpdates(nil)
+    }
     
     func setupLoginWindow() {
         let loginFormView = LoginForm(onLoginStatusChanged: { isLoggedIn in
@@ -106,7 +106,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // 登录/登出
         menu.addItem(withTitle: isUserLoggedIn ? "登出" : "登录", action: #selector(toggleLogin), keyEquivalent: "l")
         // 检查更新
-        //menu.addItem(withTitle: "检查更新", action: #selector(checkForUpdates), keyEquivalent: "u")
+        menu.addItem(withTitle: "检查更新", action: #selector(checkForUpdates), keyEquivalent: "u")
 
         // 切换壁纸
         let wallpaperMenu = NSMenu(title: "切换壁纸")
