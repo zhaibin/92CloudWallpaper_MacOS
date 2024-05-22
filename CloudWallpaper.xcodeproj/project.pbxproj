@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BE2069502BFD9B18000613E4 /* EnvLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE20694F2BFD9B18000613E4 /* EnvLoader.swift */; };
 		BE2069522BFD9C15000613E4 /* .env in Resources */ = {isa = PBXBuildFile; fileRef = BE2069512BFD9C15000613E4 /* .env */; };
+		BE2069552BFD9DBB000613E4 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = BE2069542BFD9DBB000613E4 /* Sparkle */; };
 		BE8EBC092BEF7C6A006EC116 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE8EBC082BEF7C6A006EC116 /* Assets.xcassets */; };
 		BE8EBC0C2BEF7C6A006EC116 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE8EBC0B2BEF7C6A006EC116 /* Preview Assets.xcassets */; };
 		BE8EBC142BEF7CBD006EC116 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EBC132BEF7CBD006EC116 /* AppDelegate.swift */; };
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE2069552BFD9DBB000613E4 /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +117,7 @@
 			);
 			name = CloudWallpaper;
 			packageProductDependencies = (
+				BE2069542BFD9DBB000613E4 /* Sparkle */,
 			);
 			productName = CloudWallpaper;
 			productReference = BE8EBC012BEF7C68006EC116 /* CloudWallpaper.app */;
@@ -146,6 +149,7 @@
 			);
 			mainGroup = BE8EBBF82BEF7C68006EC116;
 			packageReferences = (
+				BE2069532BFD9DBB000613E4 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
 			productRefGroup = BE8EBC022BEF7C68006EC116 /* Products */;
 			projectDirPath = "";
@@ -339,7 +343,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.haokan.CloudWallpaper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -373,7 +377,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.haokan.CloudWallpaper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -403,6 +407,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BE2069532BFD9DBB000613E4 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.6.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BE2069542BFD9DBB000613E4 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BE2069532BFD9DBB000613E4 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BE8EBBF92BEF7C68006EC116 /* Project object */;
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>CloudWallpaper Updates</title>
+    <link>https://zhaibin.github.io/92CloudWallpaper_MacOS/updates/appcast.xml</link>
+    <description>Most recent changes with links to updates.</description>
+    <language>en</language>
+    <item>
+      <title>Version 0.2.2</title>
+      <sparkle:releaseNotesLink>https://zhaibin.github.io/92CloudWallpaper_MacOS/updates/release_notes_0.2.2.html</sparkle:releaseNotesLink>
+      <pubDate>Wed, 22 May 2024 05:33:34 </pubDate>
+      <enclosure url="https://github.com/zhaibin/92CloudWallpaper_MacOS/releases/download/v0.2.2/CloudWallpaper.app"
+                 sparkle:version="0.2.2"
+                 sparkle:shortVersionString="0.2.2"
+                 length="1680206"
+                 type="application/octet-stream"
+                 sparkle:dsaSignature="MD0CHQCN1IGvxV+uyfFBcRHDyleZ0diaVn2OZsm4iL9dAhxHSNh7PcWt9Dsh9fwk
+Yw7Bn8jmJRfkwrrH3Sqs"/>
+    </item>
+  </channel>
+</rss>

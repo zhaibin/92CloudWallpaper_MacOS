@@ -106,7 +106,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // 登录/登出
         menu.addItem(withTitle: isUserLoggedIn ? "登出" : "登录", action: #selector(toggleLogin), keyEquivalent: "l")
         // 检查更新
-        menu.addItem(withTitle: "检查更新", action: #selector(checkForUpdates), keyEquivalent: "u")
+        //menu.addItem(withTitle: "检查更新", action: #selector(checkForUpdates), keyEquivalent: "u")
 
         // 切换壁纸
         let wallpaperMenu = NSMenu(title: "切换壁纸")
