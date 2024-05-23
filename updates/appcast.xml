@@ -4,17 +4,18 @@
     <title>CloudWallpaper Updates</title>
     <link>https://zhaibin.github.io/92CloudWallpaper_MacOS/updates/appcast.xml</link>
     <description>Most recent changes with links to updates.</description>
-    <language>en</language>
+    <language>zh_CN</language>
     <item>
       <title>Version 0.2.6</title>
-      <sparkle:releaseNotesLink>https://zhaibin.github.io/92CloudWallpaper_MacOS/updates/release_notes_0.2.6.html</sparkle:releaseNotesLink>
-      <pubDate>Wed, 22 May 2024 07:32:25 </pubDate>
+      <sparkle:releaseNotesLink>https://github.com/zhaibin/92CloudWallpaper_MacOS/releases/download/v0.2.6/CloudWallpaper.zip</sparkle:releaseNotesLink>
+      <pubDate>Thu, 23 May 2024 02:18:03 </pubDate>
       <enclosure url="https://github.com/zhaibin/92CloudWallpaper_MacOS/releases/download/v0.2.6/CloudWallpaper.zip"
                  sparkle:version="0.2.6"
                  sparkle:shortVersionString="0.2.6"
                  length="1681188"
                  type="application/octet-stream"
-                 sparkle:dsaSignature="/dQJBxZFbBZKrQgmh1NytNTDbUJi1DwznAmmH2Sf/Sh3nMgEZ/OrOjIXC0BB2WUhSli8M/HZIexgDYQkCnUIBw=="/>
+                 sparkle:dsaSignature="MD0CHQC3BTMRYZuRkd6W6E/4Z95kD7PnwkbIX5PAmRgDAhwtcNxh1w4+Pa64/S/A
+X8oeBWa9T+u5hfA6u34l"/>
     </item>
   </channel>
 </rss>
