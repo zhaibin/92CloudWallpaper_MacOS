@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		BE2069502BFD9B18000613E4 /* EnvLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE20694F2BFD9B18000613E4 /* EnvLoader.swift */; };
 		BE2069522BFD9C15000613E4 /* .env in Resources */ = {isa = PBXBuildFile; fileRef = BE2069512BFD9C15000613E4 /* .env */; };
-		BE2069572BFDBE3D000613E4 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = BE2069562BFDBE3D000613E4 /* dsa_pub.pem */; };
 		BE2069712BFDD431000613E4 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = BE2069702BFDD431000613E4 /* Sparkle */; };
+		BE2069772BFDECA5000613E4 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = BE2069762BFDECA5000613E4 /* dsa_pub.pem */; };
 		BE8EBC092BEF7C6A006EC116 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE8EBC082BEF7C6A006EC116 /* Assets.xcassets */; };
 		BE8EBC0C2BEF7C6A006EC116 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE8EBC0B2BEF7C6A006EC116 /* Preview Assets.xcassets */; };
 		BE8EBC142BEF7CBD006EC116 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EBC132BEF7CBD006EC116 /* AppDelegate.swift */; };
@@ -24,7 +24,7 @@
 /* Begin PBXFileReference section */
 		BE20694F2BFD9B18000613E4 /* EnvLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvLoader.swift; sourceTree = "<group>"; };
 		BE2069512BFD9C15000613E4 /* .env */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .env; sourceTree = "<group>"; };
-		BE2069562BFDBE3D000613E4 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = ../../../keys/dsa_pub.pem; sourceTree = "<group>"; };
+		BE2069762BFDECA5000613E4 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		BE8EBC012BEF7C68006EC116 /* CloudWallpaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudWallpaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE8EBC082BEF7C6A006EC116 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE8EBC0B2BEF7C6A006EC116 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -52,6 +52,7 @@
 		BE8EBBF82BEF7C68006EC116 = {
 			isa = PBXGroup;
 			children = (
+				BEEE9CA02BFCA57C00A0A9B1 /* Resources */,
 				BE2069512BFD9C15000613E4 /* .env */,
 				BEEE9CA32BFCA8AD00A0A9B1 /* Info.plist */,
 				BE8EBC032BEF7C68006EC116 /* CloudWallpaper */,
@@ -70,7 +71,6 @@
 		BE8EBC032BEF7C68006EC116 /* CloudWallpaper */ = {
 			isa = PBXGroup;
 			children = (
-				BEEE9CA02BFCA57C00A0A9B1 /* Resources */,
 				BE8EBC082BEF7C6A006EC116 /* Assets.xcassets */,
 				BE8EBC0D2BEF7C6A006EC116 /* CloudWallpaper.entitlements */,
 				BE8EBC0A2BEF7C6A006EC116 /* Preview Content */,
@@ -95,7 +95,7 @@
 		BEEE9CA02BFCA57C00A0A9B1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BE2069562BFDBE3D000613E4 /* dsa_pub.pem */,
+				BE2069762BFDECA5000613E4 /* dsa_pub.pem */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -165,8 +165,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE2069772BFDECA5000613E4 /* dsa_pub.pem in Resources */,
 				BE2069522BFD9C15000613E4 /* .env in Resources */,
-				BE2069572BFDBE3D000613E4 /* dsa_pub.pem in Resources */,
 				BEEE9CA42BFCA8AD00A0A9B1 /* Info.plist in Resources */,
 				BE8EBC0C2BEF7C6A006EC116 /* Preview Assets.xcassets in Resources */,
 				BE8EBC092BEF7C6A006EC116 /* Assets.xcassets in Resources */,

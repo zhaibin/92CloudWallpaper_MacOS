@@ -36,18 +36,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         _ = Bundle.main.infoDictionary?["CFBundleName"] as? String
         let allApps = NSWorkspace.shared.runningApplications
         let running = allApps.filter { $0.bundleIdentifier == Bundle.main.bundleIdentifier }
-        
+
         if running.count > 1 {
             // 如果发现有另一个实例已在运行，则终止当前应用
             NSApp.terminate(nil)
         }
         // 启用 Sparkle 调试日志
-       UserDefaults.standard.set(true, forKey: "SUEnableDebugLogging")
+        //UserDefaults.standard.set(true, forKey: "SUEnableDebugLogging")
+        //print(UserDefaults.standard.set(true, forKey: "SUEnableDebugLogging"))
 
-       // 初始化 SPUStandardUpdaterController
-       updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
-        
-        
+        // 初始化 SPUStandardUpdaterController
+        updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
+
+
         EnvLoader.loadEnv()
         let screenSize = getScreenSize()
         screenWidth = screenSize?.width ?? screenWidth
@@ -65,10 +66,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     //@objc func checkForUpdates() {
     //    updaterController.checkForUpdates(nil)
     //}
-    @IBAction func checkForUpdates(_ sender: Any?) {
-            updaterController.checkForUpdates(sender)
+    @objc func checkForUpdates(_ sender: Any?) {
+        //let shouldShowIcon = true// 你的逻辑条件
+        //showDockIcon(shouldShowIcon)
+        updaterController.checkForUpdates(sender)
     }
     
+    func showDockIcon(_ show: Bool) {
+        if show {
+            // 设置为常规应用，会在 Dock 显示图标
+            NSApp.setActivationPolicy(.regular)
+        } else {
+            // 设置为辅助应用，不会在 Dock 显示图标
+            NSApp.setActivationPolicy(.accessory)
+        }
+    }
     func setupLoginWindow() {
         let loginFormView = LoginForm(onLoginStatusChanged: { isLoggedIn in
             DispatchQueue.main.async {  // 确保在主线程执行 UI 更新
@@ -157,7 +169,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let interval = 60
 #endif
         
-        print(interval)
+        //print(interval)
         wallpaperTimer?.invalidate()
         if interval > 0 {
             wallpaperTimer = Timer.scheduledTimer(timeInterval: Double(interval), target: self, selector: #selector(updateWallpaper), userInfo: nil, repeats: true)
@@ -324,4 +336,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
+}
+extension AppDelegate: SPUUpdaterDelegate {
+    func updater(_ updater: SPUUpdater, willDownloadUpdate item: SUAppcastItem, with request: NSMutableURLRequest) {
+        // 在下载开始前调用
+        print("即将开始下载更新: \(item.versionString)")
+    }
+
+    func updater(_ updater: SPUUpdater, didDownloadUpdate item: SUAppcastItem) {
+        // 更新下载完成时调用
+        print("更新下载完成: \(item.versionString)")
+    }
+
+    func updater(_ updater: SPUUpdater, failedToDownloadUpdate item: SUAppcastItem, error: Error) {
+        // 更新下载失败时调用
+        print("更新下载失败: \(error.localizedDescription)")
+    }
+    func updater(_ updater: SPUUpdater, willInstallUpdate item: SUAppcastItem) {
+        print("将安装更新: \(item.versionString)")
+    }
+
+    func updater(_ updater: SPUUpdater, userDidCancelDownload item: SUAppcastItem) {
+        print("用户取消了下载: \(item.versionString)")
+    }
+
 }
