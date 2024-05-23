@@ -1,6 +1,5 @@
 import Cocoa
 import SwiftUI
-import Sparkle
 
 
 
@@ -18,7 +17,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var screenHeight: Int = 900
     var pageIndex = 1  // 翻页参数初始化为1
     //var isAutoStartEnabled: Bool = false
-    private var updaterController: SPUStandardUpdaterController!
 
            
     override init() {
@@ -41,14 +39,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // 如果发现有另一个实例已在运行，则终止当前应用
             NSApp.terminate(nil)
         }
-        // 启用 Sparkle 调试日志
-        //UserDefaults.standard.set(true, forKey: "SUEnableDebugLogging")
-        //print(UserDefaults.standard.set(true, forKey: "SUEnableDebugLogging"))
         //let shouldShowIcon = true// 你的逻辑条件
         //showDockIcon(shouldShowIcon)
-        // 初始化 SPUStandardUpdaterController
-        updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
-
+        
 
         EnvLoader.loadEnv()
         let screenSize = getScreenSize()
@@ -66,11 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     //@objc func checkForUpdates() {
     //    updaterController.checkForUpdates(nil)
     //}
-    @objc func checkForUpdates(_ sender: Any?) {
-        //let shouldShowIcon = true// 你的逻辑条件
-        //showDockIcon(shouldShowIcon)
-        updaterController.checkForUpdates(sender)
-    }
+
     
     func showDockIcon(_ show: Bool) {
         if show {
@@ -129,9 +118,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // 登录/登出
         menu.addItem(withTitle: isUserLoggedIn ? "登出" : "登录", action: #selector(toggleLogin), keyEquivalent: "l")
-        // 检查更新
-        menu.addItem(withTitle: "检查更新", action: #selector(checkForUpdates), keyEquivalent: "u")
-
+        
+        menu.addItem(NSMenuItem(title: "检查更新", action: #selector(checkForUpdates), keyEquivalent: "U"))
+                    
         // 切换壁纸
         let wallpaperMenu = NSMenu(title: "切换壁纸")
         wallpaperMenu.addItem(withTitle: "立即更换", action: #selector(changeWallpaperManually), keyEquivalent: "n")
@@ -157,6 +146,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         statusItem.menu = menu
     }
+    
+    @objc func checkForUpdates() {
+            UpdateManager.shared.checkForUpdates()
+        }
     
     @objc func changeWallpaperManually() {
         setWallpaper()
@@ -336,29 +329,4 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
-}
-extension AppDelegate: SPUUpdaterDelegate {
-    
-    func updater(_ updater: SPUUpdater, willDownloadUpdate item: SUAppcastItem, with request: NSMutableURLRequest) {
-        // 在下载开始前调用
-        print("即将开始下载更新: \(item.versionString)")
-    }
-
-    func updater(_ updater: SPUUpdater, didDownloadUpdate item: SUAppcastItem) {
-        // 更新下载完成时调用
-        print("更新下载完成: \(item.versionString)")
-    }
-
-    func updater(_ updater: SPUUpdater, failedToDownloadUpdate item: SUAppcastItem, error: Error) {
-        // 更新下载失败时调用
-        print("更新下载失败: \(error.localizedDescription)")
-    }
-    func updater(_ updater: SPUUpdater, willInstallUpdate item: SUAppcastItem) {
-        print("将安装更新: \(item.versionString)")
-    }
-
-    func updater(_ updater: SPUUpdater, userDidCancelDownload item: SUAppcastItem) {
-        print("用户取消了下载: \(item.versionString)")
-    }
-
 }
