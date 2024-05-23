@@ -7,15 +7,17 @@
     <language>zh_CN</language>
     <item>
       <title>Version 0.2.6</title>
-      <sparkle:releaseNotesLink>https://92.haokan.mobi/ads.txt</sparkle:releaseNotesLink>
-      <pubDate>Thu, 23 May 2024 02:45:16 </pubDate>
+      <description><![CDATA[
+        <h2>更新</h2>
+        
+      ]]>
+      </description>
+      <sparkle:version>0.2.6</sparkle:version>
+      <pubDate>Thu, 23 May 2024 03:00:44 +0000</pubDate>
       <enclosure url="https://github.com/zhaibin/92CloudWallpaper_MacOS/releases/download/v0.2.6/CloudWallpaper.zip"
-                 sparkle:version="0.2.6"
-                 sparkle:shortVersionString="0.2.6"
                  length="1681188"
                  type="application/octet-stream"
-                 sparkle:dsaSignature="MD0CHQCNb91dg9P6J5yEkInPiJTO65jsuAImrYla4qUgAhwqcKJCI51pQoA4aJ45
-qSyeo84fucWbKaxx9jit"/>
+                 sparkle:dsaSignature="MDwCHDAITSQqJ2MkHrpee178lJqXFfrE56BXx22Tu0gCHFgu0/CHrnvnYTwO3EDRDZ4WlMn5c9vZm84l9FU="/>
     </item>
   </channel>
 </rss>
