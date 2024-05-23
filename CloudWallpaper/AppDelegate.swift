@@ -44,7 +44,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // 启用 Sparkle 调试日志
         //UserDefaults.standard.set(true, forKey: "SUEnableDebugLogging")
         //print(UserDefaults.standard.set(true, forKey: "SUEnableDebugLogging"))
-
+        let shouldShowIcon = true// 你的逻辑条件
+        showDockIcon(shouldShowIcon)
         // 初始化 SPUStandardUpdaterController
         updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
 
@@ -59,8 +60,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setupStatusBar()
         setupLoginWindow()  // 设置用于登录的窗口
         
-        updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
-                
+              
     }
     
     //@objc func checkForUpdates() {
@@ -338,6 +338,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
 }
 extension AppDelegate: SPUUpdaterDelegate {
+    
     func updater(_ updater: SPUUpdater, willDownloadUpdate item: SUAppcastItem, with request: NSMutableURLRequest) {
         // 在下载开始前调用
         print("即将开始下载更新: \(item.versionString)")
