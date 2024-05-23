@@ -6,15 +6,14 @@
     <description>Most recent changes with links to updates.</description>
     <language>zh_CN</language>
     <item>
-      <title>Version 0.2.6</title>
-      <description><![CDATA[
-        <h2>更新</h2>
-        
-      ]]>
-      </description>
-      <sparkle:version>0.2.6</sparkle:version>
-      <pubDate>Thu, 23 May 2024 06:00:22 +0000</pubDate>
-      <link>https://github.com/zhaibin/92CloudWallpaper_MacOS/releases/download/v0.2.6/CloudWallpaper.zip</link>
+      <title>Version 0.2.7</title>
+      <sparkle:version>0.2.7</sparkle:version>
+      <sparkle:releaseNotesLink>https://github.com/zhaibin/92CloudWallpaper_MacOS/releases/download/v0.2.7/CloudWallpaper.zip</sparkle:releaseNotesLink>
+      <pubDate>Thu, 23 May 2024 07:03:53 +0000</pubDate>
+      <enclosure url="https://github.com/zhaibin/92CloudWallpaper_MacOS/releases/download/v0.2.7/CloudWallpaper.zip"
+                 length="1685050"
+                 type="application/octet-stream"
+                 sparkle:edSignature="p0iYMZwPqR5TcT1zSpohtyvk9xmsFpVFTCPBeFCrm62GikyhsdzwspBMtuEVT3lV+2+VMO5pc3G2Ge/3zoEaBg=="/>
     </item>
   </channel>
 </rss>

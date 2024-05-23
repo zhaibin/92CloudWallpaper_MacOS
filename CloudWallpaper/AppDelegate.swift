@@ -44,8 +44,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // 启用 Sparkle 调试日志
         //UserDefaults.standard.set(true, forKey: "SUEnableDebugLogging")
         //print(UserDefaults.standard.set(true, forKey: "SUEnableDebugLogging"))
-        let shouldShowIcon = true// 你的逻辑条件
-        showDockIcon(shouldShowIcon)
+        //let shouldShowIcon = true// 你的逻辑条件
+        //showDockIcon(shouldShowIcon)
         // 初始化 SPUStandardUpdaterController
         updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
 
