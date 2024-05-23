@@ -19,7 +19,6 @@
 		BE8EBC182BEF7D4D006EC116 /* ApiRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EBC172BEF7D4D006EC116 /* ApiRequestHandler.swift */; };
 		BE8EBC1A2BEF7DBC006EC116 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EBC192BEF7DBC006EC116 /* main.swift */; };
 		BE8EBC1C2BEF7FBA006EC116 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EBC1B2BEF7FBA006EC116 /* LoginForm.swift */; };
-		BEEE9CA42BFCA8AD00A0A9B1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BEEE9CA32BFCA8AD00A0A9B1 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -170,7 +169,6 @@
 				BE20697C2BFF316C000613E4 /* appcast.xml in Resources */,
 				BE2069522BFD9C15000613E4 /* .env in Resources */,
 				BE20697E2BFF3296000613E4 /* update.json in Resources */,
-				BEEE9CA42BFCA8AD00A0A9B1 /* Info.plist in Resources */,
 				BE8EBC0C2BEF7C6A006EC116 /* Preview Assets.xcassets in Resources */,
 				BE8EBC092BEF7C6A006EC116 /* Assets.xcassets in Resources */,
 			);
@@ -328,12 +326,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = CloudWallpaper/CloudWallpaper.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"CloudWallpaper/Preview Content\"";
 				DEVELOPMENT_TEAM = QGZWF22AD2;
@@ -350,7 +349,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 0.2.7;
+				MARKETING_VERSION = 0.2.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.haokan.CloudWallpaper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -364,12 +363,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = CloudWallpaper/CloudWallpaper.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"CloudWallpaper/Preview Content\"";
 				DEVELOPMENT_TEAM = QGZWF22AD2;
@@ -385,7 +385,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 0.2.7;
+				MARKETING_VERSION = 0.2.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.haokan.CloudWallpaper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

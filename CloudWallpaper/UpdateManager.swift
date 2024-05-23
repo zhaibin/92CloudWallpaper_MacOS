@@ -1,13 +1,16 @@
 import Cocoa
 
-class UpdateManager {
+class UpdateManager: NSObject, URLSessionDownloadDelegate {
     static let shared = UpdateManager()
     
     private var progressWindow: NSWindow!
     private var progressBar: NSProgressIndicator!
     private var progressLabel: NSTextField!
+    private var downloadTask: URLSessionDownloadTask?
+    private var observation: NSKeyValueObservation?
     
-    private init() {
+    private override init() {
+        super.init()
         setupProgressWindow()
     }
     
@@ -41,6 +44,8 @@ class UpdateManager {
         let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0"
         if updateInfo.version.compare(currentVersion, options: .numeric) == .orderedDescending {
             promptForUpdate(updateInfo)
+        } else {
+            noUpdateAvailable()
         }
     }
     
@@ -57,6 +62,17 @@ class UpdateManager {
             if response == .alertFirstButtonReturn {
                 self.downloadAndInstallUpdate(updateInfo)
             }
+        }
+    }
+    
+    private func noUpdateAvailable() {
+        DispatchQueue.main.async {
+            let alert = NSAlert()
+            alert.messageText = "没有发现新版本"
+            alert.informativeText = "您已经安装了最新版本。"
+            alert.alertStyle = .informational
+            alert.addButton(withTitle: "确定")
+            alert.runModal()
         }
     }
     
@@ -108,50 +124,49 @@ class UpdateManager {
         
         showProgressWindow()
         
-        let task = URLSession.shared.downloadTask(with: url) { localURL, response, error in
-            guard let localURL = localURL else {
-                if let error = error {
-                    print("下载更新失败: \(error)")
-                }
-                return
-            }
-            
-            self.installUpdate(from: localURL)
-        }
-        
-        task.resume()
-        
-        let observation = task.progress.observe(\.fractionCompleted) { progress, _ in
-            self.updateProgress(progress.fractionCompleted)
-        }
-        
-        // Hold the observation to avoid being deallocated
-        _ = observation
+        let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
+        downloadTask = session.downloadTask(with: url)
+        downloadTask?.resume()
     }
     
     private func installUpdate(from localURL: URL) {
         do {
             let fileManager = FileManager.default
-            let destinationURL = fileManager.temporaryDirectory.appendingPathComponent("yourapp.zip")
+            let downloadsDirectory = fileManager.urls(for: .downloadsDirectory, in: .userDomainMask).first!
+            let destinationURL = downloadsDirectory.appendingPathComponent("CloudWallpaper.zip")
+            
+            // 如果目标文件存在，删除它
+            if fileManager.fileExists(atPath: destinationURL.path) {
+                try fileManager.removeItem(at: destinationURL)
+            }
             
             try fileManager.moveItem(at: localURL, to: destinationURL)
             
-            // 模拟安装过程
-            print("更新已下载至: \(destinationURL.path)")
-            // 这里你可以解压并替换应用
+            // 解压缩文件
+            let unzipDirectory = downloadsDirectory.appendingPathComponent("CloudWallpaper")
+            if fileManager.fileExists(atPath: unzipDirectory.path) {
+                try fileManager.removeItem(at: unzipDirectory)
+            }
+            try fileManager.createDirectory(at: unzipDirectory, withIntermediateDirectories: true, attributes: nil)
             
-            // 提示用户重启应用
+            let task = Process()
+            task.launchPath = "/usr/bin/unzip"
+            task.arguments = [destinationURL.path, "-d", unzipDirectory.path]
+            task.launch()
+            task.waitUntilExit()
+            
+            // 提示用户重启应用并移动应用到 Downloads 目录
             DispatchQueue.main.async {
                 self.progressWindow.close()
                 let alert = NSAlert()
-                alert.messageText = "更新已安装"
-                alert.informativeText = "更新已安装。请重启应用以应用更改。"
+                alert.messageText = "更新已下载并解压缩"
+                alert.informativeText = "新的软件已放在 \(unzipDirectory.path) 目录下。请重新打开应用。"
                 alert.alertStyle = .informational
-                alert.addButton(withTitle: "立即重启")
+                alert.addButton(withTitle: "确定")
                 
                 let response = alert.runModal()
                 if response == .alertFirstButtonReturn {
-                    self.restartApplication()
+                    self.restartApplication(at: unzipDirectory.appendingPathComponent("CloudWallpaper.app"))
                 }
             }
         } catch {
@@ -159,13 +174,23 @@ class UpdateManager {
         }
     }
     
-    private func restartApplication() {
+    private func restartApplication(at appURL: URL) {
         let task = Process()
         task.launchPath = "/usr/bin/env"
-        task.arguments = ["open", Bundle.main.bundlePath]
+        task.arguments = ["open", appURL.path]
         task.launch()
         
         NSApp.terminate(nil)
+    }
+    
+    // URLSessionDownloadDelegate 方法
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        installUpdate(from: location)
+    }
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        let progress = Double(totalBytesWritten) / Double(totalBytesExpectedToWrite)
+        updateProgress(progress)
     }
 }
 

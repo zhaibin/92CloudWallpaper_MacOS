@@ -118,8 +118,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // 登录/登出
         menu.addItem(withTitle: isUserLoggedIn ? "登出" : "登录", action: #selector(toggleLogin), keyEquivalent: "l")
-        
-        menu.addItem(NSMenuItem(title: "检查更新", action: #selector(checkForUpdates), keyEquivalent: "U"))
+        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "未知"
+        menu.addItem(NSMenuItem(title: "检查更新 (版本: \(currentVersion))", action: #selector(checkForUpdates), keyEquivalent: "U"))
+                
+        //menu.addItem(NSMenuItem(title: "检查更新", action: #selector(checkForUpdates), keyEquivalent: "U"))
                     
         // 切换壁纸
         let wallpaperMenu = NSMenu(title: "切换壁纸")
