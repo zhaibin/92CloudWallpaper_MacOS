@@ -1,12 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "logo22.png",
+      "filename" : "logo-w-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "logo48.png",
+      "filename" : "logo-w-2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
