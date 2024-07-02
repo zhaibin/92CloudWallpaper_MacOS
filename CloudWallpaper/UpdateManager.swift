@@ -16,7 +16,9 @@ class UpdateManager: NSObject, URLSessionDownloadDelegate {
     
     func checkForUpdates() {
         // 设置更新源 URL
-        guard let url = URL(string: "https://zhaibin.github.io/92CloudWallpaper_MacOS/updates/update.json") else {
+        //https://api.github.com/repos/zhaibin/92CloudWallpaper_MacOS/releases/latest
+        //https://hk-content.oss-cn-hangzhou.aliyuncs.com/92CloudWallpaperVersion/update.txt
+        guard let url = URL(string: "https://hk-content.oss-cn-hangzhou.aliyuncs.com/92CloudWallpaperVersion/update.txt?\(Constant.softwareVersion ?? "0.0.0.0")") else {
             print("无效的更新 URL")
             return
         }
@@ -31,6 +33,7 @@ class UpdateManager: NSObject, URLSessionDownloadDelegate {
             
             do {
                 let updateInfo = try JSONDecoder().decode(UpdateInfo.self, from: data)
+                print(updateInfo)
                 self.handleUpdateInfo(updateInfo)
             } catch {
                 print("解码更新信息失败: \(error)")
@@ -41,10 +44,11 @@ class UpdateManager: NSObject, URLSessionDownloadDelegate {
     }
     
     private func handleUpdateInfo(_ updateInfo: UpdateInfo) {
-        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0"
+        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0.0"
         if updateInfo.version.compare(currentVersion, options: .numeric) == .orderedDescending {
             promptForUpdate(updateInfo)
         } else {
+            print(updateInfo,currentVersion)
             noUpdateAvailable()
         }
     }

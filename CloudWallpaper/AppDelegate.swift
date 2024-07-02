@@ -1,131 +1,144 @@
 import Cocoa
 import SwiftUI
-
-
+import ServiceManagement
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    var window: NSWindow!
-    var loginWindow: NSWindow?
     var statusItem: NSStatusItem!
-    var downloader: Downloader!
     var wallpaperTimer: Timer?
     var userId: Int
-    var wallpaperURLs: [URL] = []
-    var syncWallpaperURLs: [URL] = [] //当前与 API 一致的图片
-    var currentWallpaperIndex = 0
     var screenWidth: Int = 1440
     var screenHeight: Int = 900
-    var pageIndex = 1  // 翻页参数初始化为1
-    //var isAutoStartEnabled: Bool = false
-
-           
+    var webViewWindow: WebViewWindow!
+    var imageCacheManager: ImageCacheManager!
+    var currentWallpaperIndex = 0
+//    var wallpaperComponent: WallpaperComponent?
+    var functions: Functions!
+//    var isComponentVisible: Bool = true {
+//        didSet {
+//            updateComponentVisibility()
+//            updateMenu()
+//        }
+//    }
+    var stats: Stats
+    
     override init() {
         self.userId = UserDefaults.standard.integer(forKey: "UserId")
-        self.isUserLoggedIn = (userId != 0)
+        //self.isUserLoggedIn = (userId != 0)
+        self.stats = Stats()
         super.init()
+        //ImageCacheManager.shared.initialize(userId: userId)
     }
-    var isUserLoggedIn: Bool {
-        didSet {
-            updateLoginMenuItem()
-        }
-    }
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // 检查是否已有同名应用在运行
-        _ = Bundle.main.infoDictionary?["CFBundleName"] as? String
+        preventMultipleInstances()
+        
+        EnvLoader.loadEnv()
+        initializeComponents()
+        setupStatusBar()
+        setupTimer()
+
+        stats = Stats()
+        Task {
+            try await stats.report(groupId: 0, albumId: 0, authorId: 0, behavior: String(StatsPara.Behavior.startApplication))
+        }
+        setupObservers()
+//
+//        let shouldStartAtLogin = UserDefaults.standard.bool(forKey: "shouldStartAtLogin")
+//        setLaunchAtLogin(enabled: shouldStartAtLogin) 
+        
+        setWallpaper()
+    }
+ 
+    
+    func preventMultipleInstances() {
         let allApps = NSWorkspace.shared.runningApplications
         let running = allApps.filter { $0.bundleIdentifier == Bundle.main.bundleIdentifier }
-
         if running.count > 1 {
-            // 如果发现有另一个实例已在运行，则终止当前应用
             NSApp.terminate(nil)
         }
-        //let shouldShowIcon = true// 你的逻辑条件
-        //showDockIcon(shouldShowIcon)
-        
-
-        EnvLoader.loadEnv()
-        let screenSize = getScreenSize()
-        screenWidth = screenSize?.width ?? screenWidth
-        screenHeight = screenSize?.height ?? screenHeight
-        downloader = Downloader(userId: userId)  // 初始化 Downloader 时传入 userId
-        setupTimer()
-        refreshWallpaperList()
-        setupStatusBar()
-        setupLoginWindow()  // 设置用于登录的窗口
-        
-              
     }
     
-    //@objc func checkForUpdates() {
-    //    updaterController.checkForUpdates(nil)
-    //}
-
+    func initializeComponents() {
+        ImageCacheManager.shared.initialize(userId: userId)
+        webViewWindow = WebViewWindow(window: nil)
+        performCacheOperation(fetchAllPages: false)
+        
+#if DEBUG
+        loadUrlStore()
+#endif
+//        let screens = NSScreen.screens
+//        for screen in screens {
+//            do {
+//                wallpaperComponent = WallpaperComponent(screen: screen)
+//            }
+//        }
+    }
+    func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUserData(_:)), name: .didReceiveUserData, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleImagesAsync), name: .imagesAsync, object: nil)
+    }
     
-    func showDockIcon(_ show: Bool) {
-        if show {
-            // 设置为常规应用，会在 Dock 显示图标
-            NSApp.setActivationPolicy(.regular)
-        } else {
-            // 设置为辅助应用，不会在 Dock 显示图标
-            NSApp.setActivationPolicy(.accessory)
+    @objc func handleImagesAsync(notification: Notification) {
+        performCacheOperation(fetchAllPages: true)
+    }
+    @objc func handleUserData(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let userId = userInfo["userId"] as? Int,
+           let token = userInfo["token"] as? String {
+            print("Received UserId appdelegte: \(userId), Token: \(token)")
+            //self.isUserLoggedIn = (userId != 0)
+            self.userId = userId
+            performCacheOperation(fetchAllPages: true)
+            setWallpaper()
         }
     }
-    func setupLoginWindow() {
-        let loginFormView = LoginForm(onLoginStatusChanged: { isLoggedIn in
-            DispatchQueue.main.async {  // 确保在主线程执行 UI 更新
-                self.isUserLoggedIn = isLoggedIn
-                if isLoggedIn {
-                    self.userId = UserDefaults.standard.integer(forKey: "UserId")
-                    print(self.userId)
-                    self.downloader = Downloader(userId: self.userId)  // 用新的 userId 重新初始化 Downloader
-                    self.setupTimer()  // 重新设置壁纸更换定时器
-                    self.refreshWallpaperList()  // 刷新壁纸列表
-                    self.updateMenu()
-                    self.setWallpaper()
-                    self.loginWindow?.close()  // 关闭登录窗口
-                    
-                }
-            }
-        })
-
-        loginWindow = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 300, height: 300),
-            styleMask: [.titled, .closable],
-            backing: .buffered, defer: false)
-        loginWindow?.center()
-        loginWindow?.setFrameAutosaveName("Login Window")
-        loginWindow?.contentView = NSHostingView(rootView: loginFormView)
-        loginWindow?.title = "Login"
-        loginWindow?.isReleasedWhenClosed = false  // 防止窗口关闭时被释放
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .didReceiveUserData, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .imagesAsync, object: nil)
+        wallpaperTimer?.invalidate()
     }
-
-    func showLoginWindow() {
-        loginWindow?.makeKeyAndOrderFront(nil)  // 显示登录窗口
-        NSApp.activate(ignoringOtherApps: true)  // 使应用成为活跃应用
+    @objc func loadUrlStore() {
+        webViewWindow.load(url: URL(string: WebViewURL.store)!)
+    }
+    
+    @objc func loadUrlLogin() {
+        webViewWindow.load(url: URL(string: WebViewURL.login)!)
+    }
+    
+    @objc func loadUrlPost() {
+        webViewWindow.load(url: URL(string: WebViewURL.post)!)
+    }
+    @objc func loadUrlTest() {
+        webViewWindow.load(url: URL(string: WebViewURL.test)!)
     }
     
     func setupStatusBar() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         guard let button = statusItem.button else { return }
-        button.image = NSImage(named: "StatusMenuIcon")  // 确保在资源中有名为 'StatusMenuIcon' 的图标
+        button.image = NSImage(named: "StatusMenuIcon")
+        button.image?.isTemplate = true
         updateMenu()
     }
-
+    
     func updateMenu() {
         guard statusItem.button != nil else { return }
-
+        
         let menu = NSMenu()
-
-        // 登录/登出
-        menu.addItem(withTitle: isUserLoggedIn ? "登出" : "登录", action: #selector(toggleLogin), keyEquivalent: "l")
-        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "未知"
-        menu.addItem(NSMenuItem(title: "检查更新 (版本: \(currentVersion))", action: #selector(checkForUpdates), keyEquivalent: "U"))
-                
-        //menu.addItem(NSMenuItem(title: "检查更新", action: #selector(checkForUpdates), keyEquivalent: "U"))
-                    
-        // 切换壁纸
+        menu.addItem(withTitle: "壁纸商店", action: #selector(loadUrlStore), keyEquivalent: "S")
+        menu.addItem(withTitle: "上传壁纸", action: #selector(loadUrlPost), keyEquivalent: "P")
+        
         let wallpaperMenu = NSMenu(title: "切换壁纸")
         wallpaperMenu.addItem(withTitle: "立即更换", action: #selector(changeWallpaperManually), keyEquivalent: "n")
+#if DEBUG
+        let intervals = [
+            ("暂停", -1),
+            ("五秒钟", 5),
+            ("一分钟", 60),
+            ("十分钟", 600),
+            ("半小时", 1800),
+            ("一小时", 3600)
+        ]
+#else
         let intervals = [
             ("暂停", -1),
             ("一分钟", 60),
@@ -133,52 +146,59 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             ("半小时", 1800),
             ("一小时", 3600)
         ]
+#endif
+        let currentInterval = UserDefaults.standard.integer(forKey: "wallpaperChangeInterval")
+            
         for (title, seconds) in intervals {
             let item = NSMenuItem(title: title, action: #selector(setTimer(_:)), keyEquivalent: "")
             item.tag = seconds
-            item.state = (wallpaperTimer?.timeInterval == Double(seconds) ? .on : .off)
+            item.state = (currentInterval == seconds ? .on : .off)
             wallpaperMenu.addItem(item)
         }
         
         menu.setSubmenu(wallpaperMenu, for: menu.addItem(withTitle: "切换壁纸", action: nil, keyEquivalent: "w"))
-
-   
-        // 退出程序
+        
+//        let autoStartItem = NSMenuItem(title: "自动启动", action: #selector(toggleAutoStart(_:)), keyEquivalent: "A")
+//        autoStartItem.state = UserDefaults.standard.bool(forKey: "shouldStartAtLogin") ? .on : .off
+//        menu.addItem(autoStartItem)
+        
+//#if DEBUG
+//        let componentItem = NSMenuItem(title: "显示/隐藏小组件", action: #selector(toggleComponentVisibility), keyEquivalent: "C")
+//        componentItem.state = isComponentVisible ? .on : .off
+//        menu.addItem(componentItem)
+//#endif
+        let currentVersion = Constant.softwareVersion as? String ?? "未知"
+        menu.addItem(NSMenuItem(title: "检查更新 (版本: \(currentVersion))", action: #selector(checkForUpdates), keyEquivalent: "U"))
         menu.addItem(withTitle: "退出程序", action: #selector(terminate), keyEquivalent: "q")
-
         statusItem.menu = menu
     }
     
     @objc func checkForUpdates() {
-            UpdateManager.shared.checkForUpdates()
-        }
+        UpdateManager.shared.checkForUpdates()
+    }
     
     @objc func changeWallpaperManually() {
         setWallpaper()
     }
-
+    
     func setupTimer() {
-#if DEBUG
-        let interval = 5
-#else
-        let interval = 60
-#endif
-        
-        //print(interval)
-        wallpaperTimer?.invalidate()
+        let interval = UserDefaults.standard.integer(forKey: "wallpaperChangeInterval")
+        print(interval)
         if interval > 0 {
-            wallpaperTimer = Timer.scheduledTimer(timeInterval: Double(interval), target: self, selector: #selector(updateWallpaper), userInfo: nil, repeats: true)
+            wallpaperTimer?.invalidate()
+            wallpaperTimer = Timer.scheduledTimer(timeInterval: TimeInterval(interval), target: self, selector: #selector(updateWallpaper), userInfo: nil, repeats: true)
         }
     }
-
+    
     @objc func setTimer(_ sender: NSMenuItem) {
         let seconds = sender.tag
+        UserDefaults.standard.set(Int(seconds), forKey: "wallpaperChangeInterval")
         if seconds == -1 {
             wallpaperTimer?.invalidate()
             wallpaperTimer = nil
         } else {
             wallpaperTimer?.invalidate()
-            wallpaperTimer = Timer.scheduledTimer(timeInterval: Double(seconds), target: self, selector: #selector(changeWallpaperManually), userInfo: nil, repeats: true)
+            wallpaperTimer = Timer.scheduledTimer(timeInterval: TimeInterval(Int(seconds)), target: self, selector: #selector(changeWallpaperManually), userInfo: nil, repeats: true)
         }
         updateMenu()
     }
@@ -186,14 +206,53 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func updateWallpaper() {
         setWallpaper()
     }
-
+    
     func setWallpaper() {
-        if wallpaperURLs.isEmpty || userId == 0 {
+        let availableCachedData = ImageCacheManager.shared.getAvailableCachedData()
+        let allCachedData = ImageCacheManager.shared.getCachedData()
+        
+        guard !availableCachedData.isEmpty, userId != 0 else {
             print("Wallpaper URLs are empty or user is not logged in.")
-            refreshWallpaperList()
+            performCacheOperation(fetchAllPages: true)
+            return
+        }
+        print("currentIndex \(currentWallpaperIndex) | allCached.count \(allCachedData.count) | availableData.count \(availableCachedData.count)")
+        
+        let wallpaperURL = availableCachedData[currentWallpaperIndex % availableCachedData.count].localPath!
+        
+        let workspace = NSWorkspace.shared
+        let screens = NSScreen.screens
+        
+        for screen in screens {
+            do {
+                try workspace.setDesktopImageURL(wallpaperURL, for: screen, options: [:])
+            } catch {
+                print("Failed to set wallpaper for screen \(screen): \(error)")
+            }
+        }
+        
+        Task {
+            try await stats.report(groupId: availableCachedData[currentWallpaperIndex].groupId, albumId: availableCachedData[currentWallpaperIndex].albumId, authorId: availableCachedData[currentWallpaperIndex].authorId, behavior: String(StatsPara.Behavior.setWallpaper))
+        }
+        currentWallpaperIndex += 1
+        
+        if currentWallpaperIndex >= availableCachedData.count {
+            currentWallpaperIndex = 0
+            performCacheOperation(fetchAllPages: true)
+        }
+    }
+    /*
+    func setWallpaper() {
+        let availableCachedData = ImageCacheManager.shared.getAvailableCachedData()
+        let allCachedData = ImageCacheManager.shared.getCachedData()
+        
+        if availableCachedData.isEmpty || userId == 0 {
+            print("Wallpaper URLs are empty or user is not logged in.")
+            performCacheOperation(fetchAllPages: true)
         } else {
-            print("wallpaperURLs.count \(wallpaperURLs.count)")
-            let wallpaperURL = wallpaperURLs[currentWallpaperIndex % wallpaperURLs.count]
+            print("allCachedData.count \(allCachedData.count)")
+            print("availableCachedData.count \(availableCachedData.count)")
+            let wallpaperURL = availableCachedData[currentWallpaperIndex % availableCachedData.count].localPath!
             
             let workspace = NSWorkspace.shared
             let screens = NSScreen.screens
@@ -205,130 +264,88 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     print("Failed to set wallpaper for screen \(screen): \(error)")
                 }
             }
+            Task {
+                try await stats.report(groupId: availableCachedData[currentWallpaperIndex].groupId, albumId: availableCachedData[currentWallpaperIndex].albumId, authorId: availableCachedData[currentWallpaperIndex].authorId, behavior: String(StatsPara.Behavior.setWallpaper))
+            }
             
             print("currentWallpaperIndex \(currentWallpaperIndex)")
             currentWallpaperIndex += 1
             
-            if currentWallpaperIndex >= wallpaperURLs.count {
+            if currentWallpaperIndex >= availableCachedData.count {
                 currentWallpaperIndex = 0
-                refreshWallpaperList()  // 刷新壁纸列表
+                performCacheOperation(fetchAllPages: true)
             }
         }
     }
-
-    func refreshWallpaperList() {
+    */
+    func performCacheOperation(fetchAllPages: Bool) {
+        let screenSize = Functions().getScreenSize()
+        let screenWidth = screenSize?.width ?? 0
+        let screenHeight = screenSize?.height ?? 0
         let apiHandler = ApiRequestHandler()
-        let body: [String: Any] = [
-            "userId": userId,
-            "height": screenHeight,
-            "width": screenWidth,
-            "pageSize": 4,
-            "pageIndex": pageIndex
-        ]
-        Task {
-            let wallpaperList = try await apiHandler.sendApiRequestAsync(url: URL(string: "https://cnapi.levect.com/v1/photoFrame/imageList")!, body: body)
-            let newURLs = parseWallpaperList(jsonString: wallpaperList)
-            print(body)
-            if newURLs.isEmpty {
-                pageIndex = 1  // 重置页码
-                print(syncWallpaperURLs)
-                
-                self.downloader.cleanupCacheAgainstAllURLs(keepingURLs: syncWallpaperURLs) { updatedCacheFilePaths in
-                    print("updatedCacheFilePaths \(updatedCacheFilePaths)")
-                    self.wallpaperURLs = updatedCacheFilePaths
-                }
-                syncWallpaperURLs = []
-            } else {
-                syncWallpaperURLs.append(contentsOf: newURLs)
-                downloader.updateCache(with: newURLs) { [weak self] cachedURLs in
-                    guard let strongSelf = self else { return }
-                    print("cachedURLsCount \(cachedURLs.count)")
-                    
-                    strongSelf.wallpaperURLs.append(contentsOf: cachedURLs)
-                    strongSelf.pageIndex += 1
-                }
+        
+        if fetchAllPages {
+            ImageCacheManager.shared.fetchAllPages(apiHandler: apiHandler, screenHeight: screenHeight, screenWidth: screenWidth) { result in
+                self.handleFetchResult(result)
+            }
+        } else {
+            ImageCacheManager.shared.fetchOnce(apiHandler: apiHandler, screenHeight: screenHeight, screenWidth: screenWidth) { result in
+                self.handleFetchResult(result)
             }
         }
     }
     
-    func parseWallpaperList(jsonString: String) -> [URL] {
-        guard let data = jsonString.data(using: .utf8) else {
-            print("Error: Cannot create Data from jsonString")
-            return []
-        }
-
-        do {
-            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                if let body = json["body"] as? [String: Any],
-                   let list = body["list"] as? [[String: Any]] {
-                    print(list.count)
-                    return list.compactMap { item in
-                        if let urlString = item["url"] as? String, let url = URL(string: urlString) {
-                            return url
-                        } else {
-                            print("Invalid URL or missing 'url' key: \(item)")  // 输出无效的 URL 或缺少 'url' 键的信息
-                            return nil
-                        }
-                    }
-                } else {
-                    print("Missing 'body' or 'list' key, or wrong data type")
+    private func handleFetchResult(_ result: Result<Void, FetchError>) {
+        switch result {
+        case .success:
+            ImageCacheManager.shared.cacheImages { cacheResult in
+                switch cacheResult {
+                case .success:
+                    print("All images cached")
+                case .failure(let error):
+                    print("Failed to cache images: \(error)")
                 }
-            } else {
-                print("JSON does not contain a dictionary at the root level")
             }
-        } catch {
-            print("Error parsing JSON: \(error)")
-        }
-        
-        return []
-    }
-
-    @objc func toggleLogin() {
-        if isUserLoggedIn {
-            let alert = NSAlert()
-            alert.messageText = "确认退出"
-            alert.informativeText = "您确定要退出登录吗？"
-            alert.icon = NSApp.applicationIconImage  // 设置为应用图标
-            alert.addButton(withTitle: "退出")
-            alert.addButton(withTitle: "取消")
-            alert.alertStyle = .warning
-            if alert.runModal() == .alertFirstButtonReturn {
-                UserDefaults.standard.removeObject(forKey: "UserId")
-                isUserLoggedIn = false
-                updateMenu()
-                userId = 0
-            }
-        } else {
-            if loginWindow == nil {
-                setupLoginWindow()  // 如果登录窗口为空，则重新设置登录窗口
-            }
-            loginWindow?.makeKeyAndOrderFront(nil)  // 显示登录窗口
-            NSApp.activate(ignoringOtherApps: true)
+        case .failure(let error):
+            print("Failed to fetch data: \(error)")
         }
     }
+    
+//    @objc func toggleAutoStart(_ sender: NSMenuItem) {
+//        let shouldStartAtLogin = !UserDefaults.standard.bool(forKey: "shouldStartAtLogin")
+//        UserDefaults.standard.set(shouldStartAtLogin, forKey: "shouldStartAtLogin")
+//        setLaunchAtLogin(enabled: shouldStartAtLogin)
+//        updateMenu()
+//    }
+//    
+//    func setLaunchAtLogin(enabled: Bool) {
+//        let launcherAppIdentifier = Constant.bundleID // 替换为实际的 Bundle Identifier
+//        SMLoginItemSetEnabled(launcherAppIdentifier as CFString, enabled)
+//    }
+//    
 
-    func updateLoginMenuItem() {
-        if let menu = statusItem.menu {
-            let loginItem = menu.item(withTitle: isUserLoggedIn ? "Login" : "Logout")
-            loginItem?.title = isUserLoggedIn ? "Logout" : "Login"
-        }
-    }
-
+    
+//    @objc func toggleComponentVisibility() {
+//        isComponentVisible.toggle()
+//    }
+//    
+//    func updateComponentVisibility() {
+//        if isComponentVisible {
+//            if wallpaperComponent == nil {
+//                let screens = NSScreen.screens
+//                for screen in screens {
+//                    do {
+//                        wallpaperComponent = WallpaperComponent(screen: screen)
+//                    }
+//                }
+//            }
+//            wallpaperComponent?.makeKeyAndOrderFront(nil)
+//        } else {
+//            wallpaperComponent?.orderOut(nil)
+//        }
+//    }
+    
     @objc func terminate() {
         NSApp.terminate(self)
     }
-    
-    func getScreenSize() -> (width: Int, height: Int)? {
-        guard let mainScreen = NSScreen.main else {
-            print("Unable to access the main screen")
-            return (1440,900)
-        }
-
-        let screenFrame = mainScreen.frame // 使用 visibleFrame 考虑屏幕的菜单栏和停靠区
-        let width = Int(screenFrame.width)
-        let height = Int(screenFrame.height)
-        return (width, height)
-    }
-    
-    
 }
