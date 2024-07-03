@@ -25,11 +25,14 @@ class WebViewWindow: NSWindowController {
         webView.navigationDelegate = self
         webView.uiDelegate = self
 
-        let window = NSWindow(contentViewController: NSViewController())
-        window.contentViewController?.view = webView
+        // 直接创建NSViewController实例，而不是从nib文件加载
+        let viewController = NSViewController()
+        viewController.view = webView
+
+        let window = NSWindow(contentViewController: viewController)
         window.setContentSize(NSSize(width: 1280, height: 720))
         window.styleMask = [.titled, .closable, .miniaturizable]
-        window.title = Constant.appName
+        window.title = "92CloudWallpaper_macOS"
         window.isReleasedWhenClosed = false  // 确保窗口关闭时不会释放
 
         // 窗口居中显示
@@ -85,6 +88,10 @@ class WebViewWindow: NSWindowController {
     }
 
     func load(url: URL) {
+        guard url.absoluteString != "" else {
+            print("Error: URL is empty or invalid")
+            return
+        }
         webView.load(URLRequest(url: url))
         showWindowAndActivate()
     }

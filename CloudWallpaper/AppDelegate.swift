@@ -98,7 +98,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         wallpaperTimer?.invalidate()
     }
     @objc func loadUrlStore() {
-        webViewWindow.load(url: URL(string: WebViewURL.store)!)
+        if let url = URL(string: WebViewURL.store) {
+            webViewWindow.load(url: url)
+        }
     }
     
     @objc func loadUrlLogin() {
@@ -109,14 +111,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         webViewWindow.load(url: URL(string: WebViewURL.post)!)
     }
     @objc func loadUrlTest() {
-        webViewWindow.load(url: URL(string: WebViewURL.test)!)
+        //webViewWindow.load(url: URL(string: WebViewURL.test)!)
     }
     
     func setupStatusBar() {
+        // 获取系统的状态栏实例，并创建一个可变长度的状态栏项
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+
+        // 确保状态栏按钮存在
         guard let button = statusItem.button else { return }
-        button.image = NSImage(named: "StatusMenuIcon")
-        button.image?.isTemplate = true
+
+        // 设置按钮的图像
+        if let image = NSImage(named: "StatusMenuIcon") {
+            button.image = image
+            button.image?.isTemplate = true // 使用模板图像以适应浅色和深色模式
+        } else {
+            print("Error: StatusMenuIcon image not found.")
+        }
         updateMenu()
     }
     
@@ -183,7 +194,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func setupTimer() {
         let interval = UserDefaults.standard.integer(forKey: "wallpaperChangeInterval")
-        print(interval)
+
         if interval > 0 {
             wallpaperTimer?.invalidate()
             wallpaperTimer = Timer.scheduledTimer(timeInterval: TimeInterval(interval), target: self, selector: #selector(updateWallpaper), userInfo: nil, repeats: true)

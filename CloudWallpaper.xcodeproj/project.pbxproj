@@ -7,27 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE13A3172C352A1E0014BEC5 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE13A3162C352A1E0014BEC5 /* Metal.framework */; };
 		BE2069502BFD9B18000613E4 /* EnvLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE20694F2BFD9B18000613E4 /* EnvLoader.swift */; };
 		BE2069522BFD9C15000613E4 /* .env in Resources */ = {isa = PBXBuildFile; fileRef = BE2069512BFD9C15000613E4 /* .env */; };
 		BE2069792BFF3100000613E4 /* UpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2069782BFF3100000613E4 /* UpdateManager.swift */; };
 		BE20697E2BFF3296000613E4 /* update.json in Resources */ = {isa = PBXBuildFile; fileRef = BE20697D2BFF3296000613E4 /* update.json */; };
 		BE2069A12C22C043000613E4 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2069A02C22C043000613E4 /* Constant.swift */; };
 		BE2069A32C22E5E0000613E4 /* WebViewWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2069A22C22E5E0000613E4 /* WebViewWindow.swift */; };
-		BE4DB9002C26DD820030A8A5 /* ImagesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4DB8FF2C26DD820030A8A5 /* ImagesCache.swift */; };
 		BE4DB9022C26DE9B0030A8A5 /* WallpaperComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4DB9012C26DE9B0030A8A5 /* WallpaperComponent.swift */; };
 		BE4DB9042C2A61B00030A8A5 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4DB9032C2A61B00030A8A5 /* Stats.swift */; };
 		BE4DB9062C2A673B0030A8A5 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4DB9052C2A673B0030A8A5 /* Functions.swift */; };
 		BE8EBC092BEF7C6A006EC116 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE8EBC082BEF7C6A006EC116 /* Assets.xcassets */; };
 		BE8EBC0C2BEF7C6A006EC116 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE8EBC0B2BEF7C6A006EC116 /* Preview Assets.xcassets */; };
 		BE8EBC142BEF7CBD006EC116 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EBC132BEF7CBD006EC116 /* AppDelegate.swift */; };
-		BE8EBC162BEF7CF9006EC116 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EBC152BEF7CF9006EC116 /* Downloader.swift */; };
 		BE8EBC182BEF7D4D006EC116 /* ApiRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EBC172BEF7D4D006EC116 /* ApiRequestHandler.swift */; };
 		BE8EBC1A2BEF7DBC006EC116 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EBC192BEF7DBC006EC116 /* main.swift */; };
-		BE8EBC1C2BEF7FBA006EC116 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EBC1B2BEF7FBA006EC116 /* LoginForm.swift */; };
 		BEE217062C2D7E9E00715BE3 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE217052C2D7E9000715BE3 /* ImageCacheManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BE13A3162C352A1E0014BEC5 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		BE20694F2BFD9B18000613E4 /* EnvLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvLoader.swift; sourceTree = "<group>"; };
 		BE2069512BFD9C15000613E4 /* .env */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .env; sourceTree = "<group>"; };
 		BE2069782BFF3100000613E4 /* UpdateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateManager.swift; sourceTree = "<group>"; };
@@ -35,7 +34,6 @@
 		BE2069992C22B257000613E4 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		BE2069A02C22C043000613E4 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		BE2069A22C22E5E0000613E4 /* WebViewWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewWindow.swift; sourceTree = "<group>"; };
-		BE4DB8FF2C26DD820030A8A5 /* ImagesCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCache.swift; sourceTree = "<group>"; };
 		BE4DB9012C26DE9B0030A8A5 /* WallpaperComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperComponent.swift; sourceTree = "<group>"; };
 		BE4DB9032C2A61B00030A8A5 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		BE4DB9052C2A673B0030A8A5 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
@@ -44,10 +42,8 @@
 		BE8EBC0B2BEF7C6A006EC116 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BE8EBC0D2BEF7C6A006EC116 /* CloudWallpaper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CloudWallpaper.entitlements; sourceTree = "<group>"; };
 		BE8EBC132BEF7CBD006EC116 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BE8EBC152BEF7CF9006EC116 /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		BE8EBC172BEF7D4D006EC116 /* ApiRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequestHandler.swift; sourceTree = "<group>"; };
 		BE8EBC192BEF7DBC006EC116 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		BE8EBC1B2BEF7FBA006EC116 /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
 		BEE217052C2D7E9000715BE3 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		BEEE9CA32BFCA8AD00A0A9B1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -57,12 +53,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE13A3172C352A1E0014BEC5 /* Metal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BE13A3152C352A1E0014BEC5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BE13A3162C352A1E0014BEC5 /* Metal.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BE20697B2BFF316C000613E4 /* updates */ = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +84,7 @@
 				BEEE9CA32BFCA8AD00A0A9B1 /* Info.plist */,
 				BE8EBC032BEF7C68006EC116 /* CloudWallpaper */,
 				BE8EBC022BEF7C68006EC116 /* Products */,
+				BE13A3152C352A1E0014BEC5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,17 +103,14 @@
 				BE8EBC0D2BEF7C6A006EC116 /* CloudWallpaper.entitlements */,
 				BE8EBC0A2BEF7C6A006EC116 /* Preview Content */,
 				BE8EBC132BEF7CBD006EC116 /* AppDelegate.swift */,
-				BE8EBC152BEF7CF9006EC116 /* Downloader.swift */,
 				BEE217052C2D7E9000715BE3 /* ImageCacheManager.swift */,
 				BE8EBC172BEF7D4D006EC116 /* ApiRequestHandler.swift */,
 				BE8EBC192BEF7DBC006EC116 /* main.swift */,
-				BE8EBC1B2BEF7FBA006EC116 /* LoginForm.swift */,
 				BE20694F2BFD9B18000613E4 /* EnvLoader.swift */,
 				BE2069782BFF3100000613E4 /* UpdateManager.swift */,
 				BE2069992C22B257000613E4 /* CHANGELOG.md */,
 				BE2069A02C22C043000613E4 /* Constant.swift */,
 				BE2069A22C22E5E0000613E4 /* WebViewWindow.swift */,
-				BE4DB8FF2C26DD820030A8A5 /* ImagesCache.swift */,
 				BE4DB9012C26DE9B0030A8A5 /* WallpaperComponent.swift */,
 				BE4DB9032C2A61B00030A8A5 /* Stats.swift */,
 				BE4DB9052C2A673B0030A8A5 /* Functions.swift */,
@@ -200,18 +203,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE8EBC1C2BEF7FBA006EC116 /* LoginForm.swift in Sources */,
 				BE4DB9042C2A61B00030A8A5 /* Stats.swift in Sources */,
 				BE2069A32C22E5E0000613E4 /* WebViewWindow.swift in Sources */,
 				BE2069792BFF3100000613E4 /* UpdateManager.swift in Sources */,
-				BE8EBC162BEF7CF9006EC116 /* Downloader.swift in Sources */,
 				BE4DB9062C2A673B0030A8A5 /* Functions.swift in Sources */,
 				BE8EBC182BEF7D4D006EC116 /* ApiRequestHandler.swift in Sources */,
 				BE2069A12C22C043000613E4 /* Constant.swift in Sources */,
 				BEE217062C2D7E9E00715BE3 /* ImageCacheManager.swift in Sources */,
 				BE8EBC1A2BEF7DBC006EC116 /* main.swift in Sources */,
 				BE2069502BFD9B18000613E4 /* EnvLoader.swift in Sources */,
-				BE4DB9002C26DD820030A8A5 /* ImagesCache.swift in Sources */,
 				BE4DB9022C26DE9B0030A8A5 /* WallpaperComponent.swift in Sources */,
 				BE8EBC142BEF7CBD006EC116 /* AppDelegate.swift in Sources */,
 			);
@@ -358,7 +358,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"CloudWallpaper/Preview Content\"";
 				DEVELOPMENT_TEAM = QGZWF22AD2;
@@ -375,7 +375,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 0.4.0.1;
+				MARKETING_VERSION = 0.4.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.haokan.CloudWallpaper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -395,7 +395,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"CloudWallpaper/Preview Content\"";
 				DEVELOPMENT_TEAM = QGZWF22AD2;
@@ -411,7 +411,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 0.4.0.1;
+				MARKETING_VERSION = 0.4.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.haokan.CloudWallpaper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
