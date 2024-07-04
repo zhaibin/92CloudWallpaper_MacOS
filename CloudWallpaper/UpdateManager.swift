@@ -57,7 +57,7 @@ class UpdateManager: NSObject, URLSessionDownloadDelegate {
         DispatchQueue.main.async {
             let alert = NSAlert()
             alert.messageText = "发现新版本"
-            alert.informativeText = "发现新版本 \(updateInfo.version)。是否下载并安装？"
+            alert.informativeText = "\(Constant.appName)发现新版本 \(updateInfo.version)。是否下载并安装？"
             alert.alertStyle = .informational
             alert.addButton(withTitle: "下载并安装")
             alert.addButton(withTitle: "稍后")
@@ -159,53 +159,24 @@ class UpdateManager: NSObject, URLSessionDownloadDelegate {
             task.launch()
             task.waitUntilExit()
             
-            // 将解压后的应用移动到 /Applications 目录
-            let appURL = unzipDirectory.appendingPathComponent("CloudWallpaper.app")
-            let applicationsDirectory = fileManager.urls(for: .applicationDirectory, in: .localDomainMask).first!
-            let finalAppURL = applicationsDirectory.appendingPathComponent("CloudWallpaper.app")
-            
-            // 如果目标应用存在，删除它
-            if fileManager.fileExists(atPath: finalAppURL.path) {
-                try fileManager.removeItem(at: finalAppURL)
-            }
-            
-            // 使用 AppleScript 提示用户输入管理员凭据以进行移动操作
-            let script = """
-            do shell script "mv '\(appURL.path)' '\(finalAppURL.path)'" with administrator privileges
-            """
-            
-            var error: NSDictionary?
-            if let scriptObject = NSAppleScript(source: script) {
-                let output = scriptObject.executeAndReturnError(&error)
-                if error != nil {
-                    print("脚本执行错误: \(error!)")
-                    throw NSError(domain: "安装更新失败", code: 1, userInfo: [NSLocalizedDescriptionKey: "移动应用到 /Applications 目录失败"])
-                } else {
-                    print("脚本输出: \(output.stringValue ?? "")")
-                }
-            }
-            
-            // 提示用户重启应用
+            // 提示用户重启应用并移动应用到 Downloads 目录
             DispatchQueue.main.async {
                 self.progressWindow.close()
                 let alert = NSAlert()
-                alert.messageText = "更新已下载并安装"
-                alert.informativeText = "新的软件已安装到 /Applications 目录下。请重新打开应用。"
+                alert.messageText = "更新已下载并解压缩"
+                alert.informativeText = "新的软件已放在 \(unzipDirectory.path) 目录下。请重新打开应用。"
                 alert.alertStyle = .informational
                 alert.addButton(withTitle: "确定")
                 
                 let response = alert.runModal()
                 if response == .alertFirstButtonReturn {
-                    self.restartApplication(at: finalAppURL)
+                    self.restartApplication(at: unzipDirectory.appendingPathComponent("CloudWallpaper.app"))
                 }
             }
         } catch {
             print("安装更新失败: \(error)")
         }
     }
-
-
-
     
     private func restartApplication(at appURL: URL) {
         let task = Process()
@@ -232,3 +203,4 @@ struct UpdateInfo: Codable {
     let url: String
     let notes: String
 }
+

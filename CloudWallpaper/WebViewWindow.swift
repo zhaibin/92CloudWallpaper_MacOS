@@ -32,7 +32,7 @@ class WebViewWindow: NSWindowController {
         let window = NSWindow(contentViewController: viewController)
         window.setContentSize(NSSize(width: 1280, height: 720))
         window.styleMask = [.titled, .closable, .miniaturizable]
-        window.title = "92CloudWallpaper_macOS"
+        window.title = Constant.appName
         window.isReleasedWhenClosed = false  // 确保窗口关闭时不会释放
 
         // 窗口居中显示
