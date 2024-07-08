@@ -98,15 +98,18 @@ class WebViewWindow: NSWindowController {
 
     func showWindowAndActivate() {
         showWindow(self)
-        NSApp.activate(ignoringOtherApps: true)  // 将应用程序置于前方并激活窗口
+        //NSApp.setActivationPolicy(.regular)
+        NSApp.activate(ignoringOtherApps: true)
         window?.makeKeyAndOrderFront(nil)
     }
+
+    
 }
 
 extension WebViewWindow: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
-        // 隐藏窗口，但不退出应用程序
         window?.orderOut(nil)
+        NSApp.setActivationPolicy(.accessory)
     }
 }
 
@@ -137,6 +140,7 @@ extension WebViewWindow: WKNavigationDelegate, WKUIDelegate {
             completionHandler(nil)
         }
     }
+    
 }
 
 extension WebViewWindow: WKScriptMessageHandler {
@@ -194,6 +198,7 @@ extension WebViewWindow: WKScriptMessageHandler {
         // 发送通知
         NotificationCenter.default.post(name: .didReceiveUserData, object: nil, userInfo: ["userId": userId, "token": token])
     }
+
 }
 
 extension Notification.Name {

@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		BE13A3172C352A1E0014BEC5 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE13A3162C352A1E0014BEC5 /* Metal.framework */; };
+		BE13A3742C379ECC0014BEC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE13A3732C379ECC0014BEC5 /* Assets.xcassets */; };
+		BE13A3772C379ECC0014BEC5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE13A3762C379ECC0014BEC5 /* Preview Assets.xcassets */; };
+		BE13A37D2C37A2130014BEC5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE13A37C2C37A2130014BEC5 /* Info.plist */; };
+		BE13A37F2C37BC3D0014BEC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE13A37E2C37BC350014BEC5 /* AppDelegate.swift */; };
+		BE13A3882C37C3430014BEC5 /* CloudWallpaperHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = BE13A36D2C379ECA0014BEC5 /* CloudWallpaperHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BE2069502BFD9B18000613E4 /* EnvLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE20694F2BFD9B18000613E4 /* EnvLoader.swift */; };
 		BE2069522BFD9C15000613E4 /* .env in Resources */ = {isa = PBXBuildFile; fileRef = BE2069512BFD9C15000613E4 /* .env */; };
 		BE2069792BFF3100000613E4 /* UpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2069782BFF3100000613E4 /* UpdateManager.swift */; };
@@ -25,8 +30,27 @@
 		BEE217062C2D7E9E00715BE3 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE217052C2D7E9000715BE3 /* ImageCacheManager.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		BE13A3862C37C1C40014BEC5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				BE13A3882C37C3430014BEC5 /* CloudWallpaperHelper.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		BE13A3162C352A1E0014BEC5 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		BE13A36D2C379ECA0014BEC5 /* CloudWallpaperHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudWallpaperHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE13A3732C379ECC0014BEC5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BE13A3762C379ECC0014BEC5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BE13A3782C379ECC0014BEC5 /* CloudWallpaperHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CloudWallpaperHelper.entitlements; sourceTree = "<group>"; };
+		BE13A37C2C37A2130014BEC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE13A37E2C37BC350014BEC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE20694F2BFD9B18000613E4 /* EnvLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvLoader.swift; sourceTree = "<group>"; };
 		BE2069512BFD9C15000613E4 /* .env */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .env; sourceTree = "<group>"; };
 		BE2069782BFF3100000613E4 /* UpdateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateManager.swift; sourceTree = "<group>"; };
@@ -49,6 +73,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BE13A36A2C379ECA0014BEC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BE8EBBFE2BEF7C68006EC116 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -68,6 +99,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BE13A36E2C379ECA0014BEC5 /* CloudWallpaperHelper */ = {
+			isa = PBXGroup;
+			children = (
+				BE13A37E2C37BC350014BEC5 /* AppDelegate.swift */,
+				BE13A37C2C37A2130014BEC5 /* Info.plist */,
+				BE13A3732C379ECC0014BEC5 /* Assets.xcassets */,
+				BE13A3782C379ECC0014BEC5 /* CloudWallpaperHelper.entitlements */,
+				BE13A3752C379ECC0014BEC5 /* Preview Content */,
+			);
+			path = CloudWallpaperHelper;
+			sourceTree = "<group>";
+		};
+		BE13A3752C379ECC0014BEC5 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				BE13A3762C379ECC0014BEC5 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		BE20697B2BFF316C000613E4 /* updates */ = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +134,7 @@
 				BE2069512BFD9C15000613E4 /* .env */,
 				BEEE9CA32BFCA8AD00A0A9B1 /* Info.plist */,
 				BE8EBC032BEF7C68006EC116 /* CloudWallpaper */,
+				BE13A36E2C379ECA0014BEC5 /* CloudWallpaperHelper */,
 				BE8EBC022BEF7C68006EC116 /* Products */,
 				BE13A3152C352A1E0014BEC5 /* Frameworks */,
 			);
@@ -92,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				BE8EBC012BEF7C68006EC116 /* CloudWallpaper.app */,
+				BE13A36D2C379ECA0014BEC5 /* CloudWallpaperHelper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -129,6 +182,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BE13A36C2C379ECA0014BEC5 /* CloudWallpaperHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE13A37B2C379ECC0014BEC5 /* Build configuration list for PBXNativeTarget "CloudWallpaperHelper" */;
+			buildPhases = (
+				BE13A3692C379ECA0014BEC5 /* Sources */,
+				BE13A36A2C379ECA0014BEC5 /* Frameworks */,
+				BE13A36B2C379ECA0014BEC5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CloudWallpaperHelper;
+			productName = CloudWallpaperHelper;
+			productReference = BE13A36D2C379ECA0014BEC5 /* CloudWallpaperHelper.app */;
+			productType = "com.apple.product-type.application";
+		};
 		BE8EBC002BEF7C68006EC116 /* CloudWallpaper */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BE8EBC102BEF7C6A006EC116 /* Build configuration list for PBXNativeTarget "CloudWallpaper" */;
@@ -136,6 +206,7 @@
 				BE8EBBFD2BEF7C68006EC116 /* Sources */,
 				BE8EBBFE2BEF7C68006EC116 /* Frameworks */,
 				BE8EBBFF2BEF7C68006EC116 /* Resources */,
+				BE13A3862C37C1C40014BEC5 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -155,9 +226,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1530;
+				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					BE13A36C2C379ECA0014BEC5 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 					BE8EBC002BEF7C68006EC116 = {
 						CreatedOnToolsVersion = 15.3;
 						LastSwiftMigration = 1530;
@@ -180,11 +254,22 @@
 			projectRoot = "";
 			targets = (
 				BE8EBC002BEF7C68006EC116 /* CloudWallpaper */,
+				BE13A36C2C379ECA0014BEC5 /* CloudWallpaperHelper */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BE13A36B2C379ECA0014BEC5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE13A3772C379ECC0014BEC5 /* Preview Assets.xcassets in Resources */,
+				BE13A3742C379ECC0014BEC5 /* Assets.xcassets in Resources */,
+				BE13A37D2C37A2130014BEC5 /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BE8EBBFF2BEF7C68006EC116 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -199,6 +284,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BE13A3692C379ECA0014BEC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE13A37F2C37BC3D0014BEC5 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BE8EBBFD2BEF7C68006EC116 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -220,6 +313,72 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		BE13A3792C379ECC0014BEC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CloudWallpaperHelper/CloudWallpaperHelper.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CloudWallpaperHelper/Preview Content\"";
+				DEVELOPMENT_TEAM = QGZWF22AD2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = CloudWallpaperHelper;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSBackgroundOnly = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haokan.CloudWallpaper.helper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		BE13A37A2C379ECC0014BEC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CloudWallpaperHelper/CloudWallpaperHelper.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CloudWallpaperHelper/Preview Content\"";
+				DEVELOPMENT_TEAM = QGZWF22AD2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = CloudWallpaperHelper;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSBackgroundOnly = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haokan.CloudWallpaper.helper;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		BE8EBC0E2BEF7C6A006EC116 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -358,7 +517,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"CloudWallpaper/Preview Content\"";
 				DEVELOPMENT_TEAM = QGZWF22AD2;
@@ -374,8 +533,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 0.4.0.4;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 0.4.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.haokan.CloudWallpaper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -395,7 +554,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"CloudWallpaper/Preview Content\"";
 				DEVELOPMENT_TEAM = QGZWF22AD2;
@@ -410,8 +569,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 0.4.0.4;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 0.4.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.haokan.CloudWallpaper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -422,6 +581,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BE13A37B2C379ECC0014BEC5 /* Build configuration list for PBXNativeTarget "CloudWallpaperHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE13A3792C379ECC0014BEC5 /* Debug */,
+				BE13A37A2C379ECC0014BEC5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BE8EBBFC2BEF7C68006EC116 /* Build configuration list for PBXProject "CloudWallpaper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

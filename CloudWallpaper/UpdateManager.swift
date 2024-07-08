@@ -16,8 +16,6 @@ class UpdateManager: NSObject, URLSessionDownloadDelegate {
     
     func checkForUpdates() {
         // 设置更新源 URL
-        //https://api.github.com/repos/zhaibin/92CloudWallpaper_MacOS/releases/latest
-        //https://hk-content.oss-cn-hangzhou.aliyuncs.com/92CloudWallpaperVersion/update.txt
         guard let url = URL(string: "https://hk-content.oss-cn-hangzhou.aliyuncs.com/92CloudWallpaperVersion/update.txt?\(Constant.softwareVersion ?? "0.0.0.0")") else {
             print("无效的更新 URL")
             return
@@ -137,7 +135,7 @@ class UpdateManager: NSObject, URLSessionDownloadDelegate {
         do {
             let fileManager = FileManager.default
             let downloadsDirectory = fileManager.urls(for: .downloadsDirectory, in: .userDomainMask).first!
-            let destinationURL = downloadsDirectory.appendingPathComponent("CloudWallpaper.zip")
+            let destinationURL = downloadsDirectory.appendingPathComponent("CloudWallpaper\(localURL.pathExtension == "pkg" ? ".pkg" : ".zip")")
             
             // 如果目标文件存在，删除它
             if fileManager.fileExists(atPath: destinationURL.path) {
@@ -146,31 +144,39 @@ class UpdateManager: NSObject, URLSessionDownloadDelegate {
             
             try fileManager.moveItem(at: localURL, to: destinationURL)
             
-            // 解压缩文件
-            let unzipDirectory = downloadsDirectory.appendingPathComponent("CloudWallpaper")
-            if fileManager.fileExists(atPath: unzipDirectory.path) {
-                try fileManager.removeItem(at: unzipDirectory)
-            }
-            try fileManager.createDirectory(at: unzipDirectory, withIntermediateDirectories: true, attributes: nil)
-            
-            let task = Process()
-            task.launchPath = "/usr/bin/unzip"
-            task.arguments = [destinationURL.path, "-d", unzipDirectory.path]
-            task.launch()
-            task.waitUntilExit()
-            
-            // 提示用户重启应用并移动应用到 Downloads 目录
-            DispatchQueue.main.async {
-                self.progressWindow.close()
-                let alert = NSAlert()
-                alert.messageText = "更新已下载并解压缩"
-                alert.informativeText = "新的软件已放在 \(unzipDirectory.path) 目录下。请重新打开应用。"
-                alert.alertStyle = .informational
-                alert.addButton(withTitle: "确定")
+            if destinationURL.pathExtension == "pkg" {
+                // 安装 pkg 文件
+                DispatchQueue.main.async {
+                    self.progressWindow.close()
+                    NSWorkspace.shared.open(destinationURL)
+                }
+            } else {
+                // 解压缩 zip 文件
+                let unzipDirectory = downloadsDirectory.appendingPathComponent("CloudWallpaper")
+                if fileManager.fileExists(atPath: unzipDirectory.path) {
+                    try fileManager.removeItem(at: unzipDirectory)
+                }
+                try fileManager.createDirectory(at: unzipDirectory, withIntermediateDirectories: true, attributes: nil)
                 
-                let response = alert.runModal()
-                if response == .alertFirstButtonReturn {
-                    self.restartApplication(at: unzipDirectory.appendingPathComponent("CloudWallpaper.app"))
+                let task = Process()
+                task.launchPath = "/usr/bin/unzip"
+                task.arguments = [destinationURL.path, "-d", unzipDirectory.path]
+                task.launch()
+                task.waitUntilExit()
+                
+                // 提示用户重启应用并移动应用到 Downloads 目录
+                DispatchQueue.main.async {
+                    self.progressWindow.close()
+                    let alert = NSAlert()
+                    alert.messageText = "更新已下载并解压缩"
+                    alert.informativeText = "新的软件已放在 \(unzipDirectory.path) 目录下。请重新打开应用。"
+                    alert.alertStyle = .informational
+                    alert.addButton(withTitle: "确定")
+                    
+                    let response = alert.runModal()
+                    if response == .alertFirstButtonReturn {
+                        self.restartApplication(at: unzipDirectory.appendingPathComponent("CloudWallpaper.app"))
+                    }
                 }
             }
         } catch {
@@ -203,4 +209,3 @@ struct UpdateInfo: Codable {
     let url: String
     let notes: String
 }
-

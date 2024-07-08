@@ -11,6 +11,7 @@ struct Constant {
     static let appNameEN = "92CloudWallpaper"
     static let softwareVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"]
     static let bundleID = "com.haokan.CloudWallpaper"
+    static let bundleHelperID = "com.haokan.CloudWallpaper.helper"
     
 }
 
