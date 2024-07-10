@@ -8,6 +8,7 @@ class UpdateManager: NSObject, URLSessionDownloadDelegate {
     private var progressLabel: NSTextField!
     private var downloadTask: URLSessionDownloadTask?
     private var observation: NSKeyValueObservation?
+    private var functions : Functions!
     
     private override init() {
         super.init()
@@ -16,7 +17,8 @@ class UpdateManager: NSObject, URLSessionDownloadDelegate {
     
     func checkForUpdates() {
         // 设置更新源 URL
-        guard let url = URL(string: "https://hk-content.oss-cn-hangzhou.aliyuncs.com/92CloudWallpaperVersion/update.txt?\(Constant.softwareVersion ?? "0.0.0.0")") else {
+        self.functions = Functions()
+        guard let url = URL(string: "https://hk-content.oss-cn-hangzhou.aliyuncs.com/92CloudWallpaperVersion/update.txt?\(functions.generateRandomNumberString(length: 10))") else {
             print("无效的更新 URL")
             return
         }
@@ -42,7 +44,7 @@ class UpdateManager: NSObject, URLSessionDownloadDelegate {
     }
     
     private func handleUpdateInfo(_ updateInfo: UpdateInfo) {
-        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0.0"
+        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0"
         if updateInfo.version.compare(currentVersion, options: .numeric) == .orderedDescending {
             promptForUpdate(updateInfo)
         } else {
@@ -135,8 +137,8 @@ class UpdateManager: NSObject, URLSessionDownloadDelegate {
         do {
             let fileManager = FileManager.default
             let downloadsDirectory = fileManager.urls(for: .downloadsDirectory, in: .userDomainMask).first!
-            let destinationURL = downloadsDirectory.appendingPathComponent("CloudWallpaper\(localURL.pathExtension == "pkg" ? ".pkg" : ".zip")")
-            
+            let destinationURL = downloadsDirectory.appendingPathComponent("CloudWallpaper.pkg")
+            print("destinationURL: \(destinationURL)")
             // 如果目标文件存在，删除它
             if fileManager.fileExists(atPath: destinationURL.path) {
                 try fileManager.removeItem(at: destinationURL)
@@ -148,7 +150,17 @@ class UpdateManager: NSObject, URLSessionDownloadDelegate {
                 // 安装 pkg 文件
                 DispatchQueue.main.async {
                     self.progressWindow.close()
-                    NSWorkspace.shared.open(destinationURL)
+                    //NSWorkspace.shared.open(destinationURL)
+                    let alert = NSAlert()
+                    alert.messageText = "更新包已下载"
+                    alert.informativeText = "新的软件已放在 下载 目录下。请安装新的版本。"
+                    alert.alertStyle = .informational
+                    alert.addButton(withTitle: "确定")
+                    
+                    let response = alert.runModal()
+                    if response == .alertFirstButtonReturn {
+                        NSWorkspace.shared.open(downloadsDirectory)
+                    }
                 }
             } else {
                 // 解压缩 zip 文件
