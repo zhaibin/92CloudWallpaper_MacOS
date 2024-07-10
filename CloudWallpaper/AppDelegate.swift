@@ -75,8 +75,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
            let token = userInfo["token"] as? String {
             print("Received UserId appdelegte: \(userId), Token: \(token)")
             self.userId = userId
+            UserDefaults.standard.set(Int(userId), forKey: "UserId")
+            print(UserDefaults.standard.integer(forKey: "UserId"))
+            ImageCacheManager.shared.initialize(userId: userId)
             performCacheOperation(fetchAllPages: true)
-            setWallpaper()
+            //setWallpaper()
         }
     }
     
@@ -135,6 +138,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let wallpaperMenu = NSMenu(title: "切换壁纸")
         wallpaperMenu.addItem(withTitle: "立即更换", action: #selector(changeWallpaperManually), keyEquivalent: "n")
+
 #if DEBUG
         let intervals = [
             ("暂停", -1),
@@ -154,11 +158,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ]
 #endif
         let currentInterval = UserDefaults.standard.integer(forKey: "wallpaperChangeInterval")
-
+        let effectiveInterval = currentInterval > 0 ? currentInterval : 600 // 确保默认值为600
         for (title, seconds) in intervals {
             let item = NSMenuItem(title: title, action: #selector(setTimer(_:)), keyEquivalent: "")
             item.tag = seconds
-            item.state = (currentInterval == seconds ? .on : .off)
+            item.state = (effectiveInterval == seconds ? .on : .off)
             wallpaperMenu.addItem(item)
         }
 
@@ -179,14 +183,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc func changeWallpaperManually() {
-        setWallpaper()
+        if UserDefaults.standard.integer(forKey: "UserId") > 0 {
+            //print("G\(GlobalData.userId)")
+            setWallpaper()
+        }
+        else {
+            loadUrlStore()
+        }
     }
 
     func setupTimer() {
         let interval = UserDefaults.standard.integer(forKey: "wallpaperChangeInterval")
-        if interval > 0 {
+        let effectiveInterval = interval > 0 ? interval : 600 // 如果没有取到值或取到的值<=0，就设置为600
+        if effectiveInterval > 0 {
             wallpaperTimer?.invalidate()
-            wallpaperTimer = Timer.scheduledTimer(timeInterval: TimeInterval(interval), target: self, selector: #selector(updateWallpaper), userInfo: nil, repeats: true)
+            wallpaperTimer = Timer.scheduledTimer(timeInterval: TimeInterval(effectiveInterval), target: self, selector: #selector(updateWallpaper), userInfo: nil, repeats: true)
         }
     }
 
