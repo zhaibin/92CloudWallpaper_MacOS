@@ -24,7 +24,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        
         preventMultipleInstances()
         EnvLoader.loadEnv()
         initializeComponents()
@@ -158,7 +157,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ]
 #endif
         let currentInterval = UserDefaults.standard.integer(forKey: "wallpaperChangeInterval")
-        let effectiveInterval = currentInterval > 0 ? currentInterval : 600 // 确保默认值为600
+        let effectiveInterval = (currentInterval > 0 || currentInterval == -1) ? currentInterval : 600 // 确保默认值为600
         for (title, seconds) in intervals {
             let item = NSMenuItem(title: title, action: #selector(setTimer(_:)), keyEquivalent: "")
             item.tag = seconds
@@ -184,7 +183,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc func changeWallpaperManually() {
         if UserDefaults.standard.integer(forKey: "UserId") > 0 {
-            //print("G\(GlobalData.userId)")
             setWallpaper()
         }
         else {

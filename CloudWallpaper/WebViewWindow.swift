@@ -18,8 +18,12 @@ class WebViewWindow: NSWindowController {
         let webViewConfiguration = WKWebViewConfiguration()
         webViewConfiguration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         let contentController = webViewConfiguration.userContentController
-        contentController.add(self, name: "consoleLog")
-        contentController.add(self, name: "receiveUserData")
+
+        // 添加 "consoleLog" 消息处理
+        addScriptMessageHandler(contentController: contentController, name: "consoleLog")
+
+        // 添加 "receiveUserData" 消息处理
+        addScriptMessageHandler(contentController: contentController, name: "receiveUserData")
 
         webView = WKWebView(frame: .zero, configuration: webViewConfiguration)
         webView.navigationDelegate = self
@@ -48,8 +52,34 @@ class WebViewWindow: NSWindowController {
 
         let userAgentSuffix = " (92CloudWallpaper_macOS)"
         webView.customUserAgent = (WKWebView().value(forKey: "userAgent") as? String ?? "") + userAgentSuffix
+    }
 
-        // 注入禁用文本选择、右键菜单、页面调试、和拖拽的JavaScript代码
+    private func addScriptMessageHandler(contentController: WKUserContentController, name: String) {
+        // 移除之前的处理器（如果存在）
+        contentController.removeScriptMessageHandler(forName: name)
+        // 添加新的处理器
+        contentController.add(self, name: name)
+    }
+
+
+
+    func load(url: URL) {
+        guard url.absoluteString != "" else {
+            print("Error: URL is empty or invalid")
+            return
+        }
+        webView.load(URLRequest(url: url))
+        showWindowAndActivate()
+    }
+
+    func showWindowAndActivate() {
+        showWindow(self)
+        //NSApp.setActivationPolicy(.regular)
+        NSApp.activate(ignoringOtherApps: true)
+        window?.makeKeyAndOrderFront(nil)
+    }
+
+    private func injectJavaScript() {
         let scriptSource = """
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.addEventListener('selectstart', event => event.preventDefault());
@@ -84,26 +114,25 @@ class WebViewWindow: NSWindowController {
         })();
         """
         let script = WKUserScript(source: scriptSource, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-        contentController.addUserScript(script)
-    }
-
-    func load(url: URL) {
-        guard url.absoluteString != "" else {
-            print("Error: URL is empty or invalid")
-            return
+        webView.configuration.userContentController.addUserScript(script)
+        
+        webView.evaluateJavaScript(scriptSource) { (result, error) in
+            if let error = error {
+                self.showErrorDialog(message: "JavaScript 注入失败: \(error.localizedDescription)")
+            } else {
+                print("JavaScript 注入成功")
+            }
         }
-        webView.load(URLRequest(url: url))
-        showWindowAndActivate()
     }
 
-    func showWindowAndActivate() {
-        showWindow(self)
-        //NSApp.setActivationPolicy(.regular)
-        NSApp.activate(ignoringOtherApps: true)
-        window?.makeKeyAndOrderFront(nil)
+    private func showErrorDialog(message: String) {
+        let alert = NSAlert()
+        alert.messageText = "错误"
+        alert.informativeText = message
+        alert.alertStyle = .critical
+        alert.addButton(withTitle: "确定")
+        alert.runModal()
     }
-
-    
 }
 
 extension WebViewWindow: NSWindowDelegate {
@@ -114,6 +143,10 @@ extension WebViewWindow: NSWindowDelegate {
 }
 
 extension WebViewWindow: WKNavigationDelegate, WKUIDelegate {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        injectJavaScript()
+    }
+
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         print("Failed to navigate: \(error.localizedDescription)")
     }
@@ -128,19 +161,19 @@ extension WebViewWindow: WKNavigationDelegate, WKUIDelegate {
 
     func webView(_ webView: WKWebView, runOpenPanelWith parameters: WKOpenPanelParameters, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping ([URL]?) -> Void) {
         let dialog = NSOpenPanel()
-        dialog.title = "Choose an image"
-        dialog.allowedFileTypes = ["png", "jpg", "jpeg", "gif", "bmp", "tiff"]
+        dialog.title = NSLocalizedString("Choose an image", comment: "Open panel title for image selection")
+        dialog.allowedFileTypes = ["png", "jpg", "jpeg", "bmp", "webp"]
         dialog.allowsMultipleSelection = false
         dialog.canChooseDirectories = false
         dialog.canCreateDirectories = false
-
-        if dialog.runModal() == .OK {
-            completionHandler(dialog.urls)
-        } else {
-            completionHandler(nil)
+        DispatchQueue.main.async {
+            if dialog.runModal() == .OK {
+                completionHandler(dialog.urls)
+            } else {
+                completionHandler(nil)
+            }
         }
     }
-    
 }
 
 extension WebViewWindow: WKScriptMessageHandler {
@@ -198,7 +231,6 @@ extension WebViewWindow: WKScriptMessageHandler {
         // 发送通知
         NotificationCenter.default.post(name: .didReceiveUserData, object: nil, userInfo: ["userId": userId, "token": token])
     }
-
 }
 
 extension Notification.Name {

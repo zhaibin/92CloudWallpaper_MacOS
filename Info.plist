@@ -4,8 +4,8 @@
 <dict>
 	<key>SMPrivilegedExecutables</key>
 	<dict>
-    <key>com.haokan.CloudWallpaper.helper</key>
-    <string>com.apple.security.privileged</string>
-</dict>
+		<key>com.haokan.CloudWallpaper.helper</key>
+		<string>com.apple.security.privileged</string>
+	</dict>
 </dict>
 </plist>
