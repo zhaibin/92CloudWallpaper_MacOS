@@ -8,6 +8,7 @@ import AppKit
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem!
     var wallpaperTimer: Timer?
+    var cacheOperationTimer: Timer? // 新增的定时器
     var userId: Int
     var screenWidth: Int = 1440
     var screenHeight: Int = 900
@@ -100,6 +101,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NotificationCenter.default.removeObserver(self, name: .didReceiveUserData, object: nil)
         NotificationCenter.default.removeObserver(self, name: .imagesAsync, object: nil)
         wallpaperTimer?.invalidate()
+        cacheOperationTimer?.invalidate() // 确保定时器在释放时被取消
     }
 
     @objc func loadUrlStore() {
@@ -197,6 +199,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             wallpaperTimer?.invalidate()
             wallpaperTimer = Timer.scheduledTimer(timeInterval: TimeInterval(effectiveInterval), target: self, selector: #selector(updateWallpaper), userInfo: nil, repeats: true)
         }
+        
+        cacheOperationTimer?.invalidate() // 确保旧的定时器被取消
+        cacheOperationTimer = Timer.scheduledTimer(timeInterval: 3600, target: self, selector: #selector(executeCacheOperation), userInfo: nil, repeats: true)
     }
 
     @objc func setTimer(_ sender: NSMenuItem) {
@@ -268,6 +273,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
+    @objc func executeCacheOperation() {
+        performCacheOperation(fetchAllPages: true)
+    }
+
     private func handleFetchResult(_ result: Result<Void, FetchError>) {
         switch result {
         case .success:
@@ -284,57 +293,57 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     @objc func toggleAutoStart(_ sender: NSMenuItem) {
-            let shouldStartAtLogin = !isLaunchAtLoginEnabled()
-            setLaunchAtLogin(enabled: shouldStartAtLogin)
-            UserDefaults.standard.set(shouldStartAtLogin, forKey: "shouldStartAtLogin")
-            updateMenu()
+        let shouldStartAtLogin = !isLaunchAtLoginEnabled()
+        setLaunchAtLogin(enabled: shouldStartAtLogin)
+        UserDefaults.standard.set(shouldStartAtLogin, forKey: "shouldStartAtLogin")
+        updateMenu()
+    }
+    
+    func setLaunchAtLogin(enabled: Bool) {
+        if #available(macOS 13.0, *) {
+            setLaunchAtLoginMacOS13(enabled: enabled)
+        } else {
+            setLaunchAtLoginLegacy(enabled: enabled)
         }
-        
-        func setLaunchAtLogin(enabled: Bool) {
-            if #available(macOS 13.0, *) {
-                setLaunchAtLoginMacOS13(enabled: enabled)
+    }
+    
+    func isLaunchAtLoginEnabled() -> Bool {
+        if #available(macOS 13.0, *) {
+            return isLaunchAtLoginEnabledMacOS13()
+        } else {
+            return isLaunchAtLoginEnabledLegacy()
+        }
+    }
+    
+    @available(macOS 13.0, *)
+    private func setLaunchAtLoginMacOS13(enabled: Bool) {
+        do {
+            if enabled {
+                try SMAppService.mainApp.register()
             } else {
-                setLaunchAtLoginLegacy(enabled: enabled)
+                try SMAppService.mainApp.unregister()
             }
+        } catch {
+            print("Failed to \(enabled ? "enable" : "disable") launch at login: \(error)")
         }
-        
-        func isLaunchAtLoginEnabled() -> Bool {
-            if #available(macOS 13.0, *) {
-                return isLaunchAtLoginEnabledMacOS13()
-            } else {
-                return isLaunchAtLoginEnabledLegacy()
-            }
+    }
+    
+    @available(macOS 13.0, *)
+    private func isLaunchAtLoginEnabledMacOS13() -> Bool {
+        return SMAppService.mainApp.status == .enabled
+    }
+    
+    private func setLaunchAtLoginLegacy(enabled: Bool) {
+        let helperBundleIdentifier = Constant.bundleHelperID as CFString
+        if SMLoginItemSetEnabled(helperBundleIdentifier, enabled) {
+            print("Successfully \(enabled ? "added" : "removed") login item.")
+        } else {
+            print("Failed to \(enabled ? "add" : "remove") login item.")
         }
-        
-        @available(macOS 13.0, *)
-        private func setLaunchAtLoginMacOS13(enabled: Bool) {
-            do {
-                if enabled {
-                    try SMAppService.mainApp.register()
-                } else {
-                    try SMAppService.mainApp.unregister()
-                }
-            } catch {
-                print("Failed to \(enabled ? "enable" : "disable") launch at login: \(error)")
-            }
-        }
-        
-        @available(macOS 13.0, *)
-        private func isLaunchAtLoginEnabledMacOS13() -> Bool {
-            return SMAppService.mainApp.status == .enabled
-        }
-        
-        private func setLaunchAtLoginLegacy(enabled: Bool) {
-            let helperBundleIdentifier = Constant.bundleHelperID as CFString
-            if SMLoginItemSetEnabled(helperBundleIdentifier, enabled) {
-                print("Successfully \(enabled ? "added" : "removed") login item.")
-            } else {
-                print("Failed to \(enabled ? "add" : "remove") login item.")
-            }
-        }
-        
-        private func isLaunchAtLoginEnabledLegacy() -> Bool {
-            // For older versions, we'll rely on UserDefaults
-            return UserDefaults.standard.bool(forKey: "shouldStartAtLogin")
-        }
+    }
+    
+    private func isLaunchAtLoginEnabledLegacy() -> Bool {
+        // For older versions, we'll rely on UserDefaults
+        return UserDefaults.standard.bool(forKey: "shouldStartAtLogin")
+    }
 }

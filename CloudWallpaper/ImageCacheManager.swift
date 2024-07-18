@@ -57,16 +57,29 @@ class ImageCacheManager {
     private var fetchedItems: [WallpaperItem] = []
     private var isFetching = false
     private let queue = DispatchQueue(label: "com.imageCacheManager.queue", attributes: .concurrent)
+    private let group = DispatchGroup()
     
     private init() {}
     
     func initialize(userId: Int) {
         self.userId = userId
         self.cacheDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("Wallpapers_\(userId)")
+        print("UserId:\(userId) , cacheDir:\(String(describing: self.cacheDir))")
         self.cacheFile = cacheDir?.appendingPathComponent("cachedData.json")
+        createCacheDirectory()
         loadCachedData()
     }
-    
+    private func createCacheDirectory() {
+        guard let cacheDir = self.cacheDir else { return }
+        if !FileManager.default.fileExists(atPath: cacheDir.path) {
+            do {
+                try FileManager.default.createDirectory(at: cacheDir, withIntermediateDirectories: true, attributes: nil)
+                print("Cache directory created at \(cacheDir.path)")
+            } catch {
+                print("Failed to create cache directory: \(error.localizedDescription)")
+            }
+        }
+    }
     func fetchAllPages(apiHandler: ApiRequestHandler, screenHeight: Int, screenWidth: Int, completion: @escaping (Result<Void, FetchError>) -> Void) {
         queue.async(flags: .barrier) {
             guard !self.isFetching else { return }
